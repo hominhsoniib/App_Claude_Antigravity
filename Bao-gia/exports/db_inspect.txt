@@ -1,0 +1,71 @@
+=== RECENT PRODUCTS ===
+ID: 18 | SKU: SP-AUTO-0018 | Name: TRICHODEMA ( DẠNG LỎNG - CAN 5 LÍT ) | List Price: 220000.0 | Cost Price: 154000.0 | Spec: Can 5 lít | Unit: Lít | Category: Import từ Excel
+ID: 17 | SKU: SP-AUTO-0017 | Name: TRICHODEMA ( DẠNG BỘT - TÚI 1 KG ) | List Price: 40000.0 | Cost Price: 28000.0 | Spec: Túi 1 kg | Unit: kg | Category: Import từ Excel
+ID: 16 | SKU: SP-AUTO-0016 | Name: HUMIC CACBON( DẠNG BỘT- TÚI 5 KG) ) | List Price: 240000.0 | Cost Price: 168000.0 | Spec: Túi 5 kg | Unit: kg | Category: Import từ Excel
+ID: 15 | SKU: SP-AUTO-0015 | Name: HUMIC CACBON ( DẠNG BỘT- TÚI 1KG ) | List Price: 50000.0 | Cost Price: 35000.0 | Spec: Túi 1 kg | Unit: kg | Category: Import từ Excel
+ID: 14 | SKU: SP-AUTO-0014 | Name: TRUNG VI LƯỢNG - OMRI - BAO BẠC 20 Kg ( Sản phẩm có 20 OM + TE ) - giúp bộ rễ khỏe, giải độc đất,cây ,cân bằng PH,điều tiết lượng nước. Giúp cứng cây xanh lá chống chịu thời tiết bất lợi,tăng tuổi thọ cho cây | List Price: 20500000.0 | Cost Price: 14350000.0 | Spec: Bao 20 kg | Unit: Tấn | Category: Import từ Excel
+ID: 13 | SKU: SP-AUTO-0013 | Name: PHÂN BÓN HỮU CƠ HC GARDEN ORGANIC( BAO 10 Kg) ( Sản phẩm chứa NPK 12-0-1, 30 OM, amino ,fulvic ...) | List Price: 15000000.0 | Cost Price: 10500000.0 | Spec: Túi 10 kg | Unit: Tấn | Category: Import từ Excel
+ID: 12 | SKU: SP-AUTO-0012 | Name: PHÂN BÓN HỮU CƠ HC GARDEN ORGANIC( BAO 25 Kg) ( Sản phẩm chứa NPK 12-0-1, 30 OM, amino ,fulvic ...) | List Price: 13500000.0 | Cost Price: 9450000.0 | Spec: Bao 25 kg | Unit: Tấn | Category: Import từ Excel
+ID: 11 | SKU: SP-AUTO-0011 | Name: PHÂN BÓN HỮU CƠ OMRI 60 OM ( Sản phẩm có NPK,Humic,Amino,Fulvic ...) | List Price: 7300000.0 | Cost Price: 5110000.0 | Spec: Bao 25 kg | Unit: Tấn | Category: Import từ Excel
+ID: 10 | SKU: SP-AUTO-0010 | Name: PHÂN BÓN HỮU CƠ OMRI 70 OM ( sản phẩm có NPK,Humic,Amino,Fulvic và các dinh dưỡng tiêu chuẩn ) | List Price: 8700000.0 | Cost Price: 6090000.0 | Spec: Bao 25 kg | Unit: Tấn | Category: Import từ Excel
+ID: 9 | SKU: SP-AUTO-0009 | Name: PHÂN BÓN HỮU CƠ OMRI 70 OM CAO CẤP ( Sản phẩm có NPK , humic,amino,fulvic + TE ) | List Price: 9200000.0 | Cost Price: 6440000.0 | Spec: Bao 25 kg | Unit: Tấn | Category: Import từ Excel
+ID: 8 | SKU: SP0008 | Name: Kính cường lực 10mm | List Price: 590000.0 | Cost Price: 450000.0 | Spec: m2 | Unit: m2 | Category: Vật liệu xây dựng
+ID: 7 | SKU: SP0007 | Name: Ống thép đúc D114 | List Price: 1150000.0 | Cost Price: 890000.0 | Spec: Cây 6m | Unit: Cây | Category: Vật liệu thép
+ID: 6 | SKU: SP0006 | Name: Máy hàn điện tử Inverter 250A | List Price: 3650000.0 | Cost Price: 2800000.0 | Spec: Chiếc | Unit: Chiếc | Category: Thiết bị công nghiệp
+ID: 5 | SKU: SP0005 | Name: Bulong lục giác M16 | List Price: 420000.0 | Cost Price: 320000.0 | Spec: Hộp 100 con | Unit: Hộp | Category: Phụ kiện
+ID: 4 | SKU: SP0004 | Name: Sơn chống rỉ Epoxy | List Price: 1250000.0 | Cost Price: 950000.0 | Spec: Thùng 18L | Unit: Thùng | Category: Hóa chất - Sơn
+ID: 3 | SKU: SP0003 | Name: Xi măng PCB40 | List Price: 95000.0 | Cost Price: 78000.0 | Spec: Bao 50kg | Unit: Bao | Category: Vật liệu xây dựng
+ID: 2 | SKU: SP0002 | Name: Tôn lạnh 0.45mm | List Price: 89000.0 | Cost Price: 65000.0 | Spec: Tấm khổ 1.07m | Unit: m2 | Category: Tôn - Mái
+ID: 1 | SKU: SP0001 | Name: Thép hộp mạ kẽm 50x50x2mm | List Price: 235000.0 | Cost Price: 180000.0 | Spec: Cây 6m | Unit: Cây | Category: Vật liệu thép
+
+=== RECENT QUOTATIONS ===
+ID: 26 | Quote No: BG-2026-000026 | Status: Nháp | Grand Total: 104775000.0
+  Line -> Prod ID: 9 | Qty: 1.0 | Price: 9200000.0 | Total: 9200000.0
+  Line -> Prod ID: 10 | Qty: 1.0 | Price: 8700000.0 | Total: 8700000.0
+  Line -> Prod ID: 11 | Qty: 1.0 | Price: 7300000.0 | Total: 7300000.0
+  Line -> Prod ID: 12 | Qty: 1.0 | Price: 13500000.0 | Total: 13500000.0
+  Line -> Prod ID: 13 | Qty: 1.0 | Price: 15000000.0 | Total: 15000000.0
+  Line -> Prod ID: 14 | Qty: 1.0 | Price: 20500000.0 | Total: 20500000.0
+  Line -> Prod ID: 14 | Qty: 1.0 | Price: 20500000.0 | Total: 20500000.0
+  Line -> Prod ID: 15 | Qty: 1.0 | Price: 50000.0 | Total: 50000.0
+  Line -> Prod ID: 16 | Qty: 1.0 | Price: 240000.0 | Total: 240000.0
+  Line -> Prod ID: 17 | Qty: 1.0 | Price: 40000.0 | Total: 40000.0
+  Line -> Prod ID: 18 | Qty: 1.0 | Price: 220000.0 | Total: 220000.0
+ID: 25 | Quote No: BG-2026-000025 | Status: Nháp | Grand Total: 0
+ID: 24 | Quote No: BG-2026-000024 | Status: Đã duyệt | Grand Total: 111861188.0
+  Line -> Prod ID: 7 | Qty: 81.0 | Price: 1150000.0 | Total: 93150000.0
+  Line -> Prod ID: 2 | Qty: 91.0 | Price: 89000.0 | Total: 7451080.0
+ID: 23 | Quote No: BG-2026-000023 | Status: Mất đơn (Lost) | Grand Total: 111882150.0
+  Line -> Prod ID: 6 | Qty: 25.0 | Price: 3650000.0 | Total: 88512500.0
+  Line -> Prod ID: 8 | Qty: 24.0 | Price: 590000.0 | Total: 12744000.0
+ID: 22 | Quote No: BG-2026-000022 | Status: Đã gửi khách | Grand Total: 263541410.0
+  Line -> Prod ID: 1 | Qty: 68.0 | Price: 235000.0 | Total: 14701600.0
+  Line -> Prod ID: 6 | Qty: 39.0 | Price: 3650000.0 | Total: 130962000.0
+  Line -> Prod ID: 7 | Qty: 31.0 | Price: 1150000.0 | Total: 35650000.0
+  Line -> Prod ID: 4 | Qty: 50.0 | Price: 1250000.0 | Total: 57500000.0
+  Line -> Prod ID: 3 | Qty: 9.0 | Price: 95000.0 | Total: 769500.0
+ID: 21 | Quote No: BG-2026-000021 | Status: Chốt đơn (Win) | Grand Total: 339840050.0
+  Line -> Prod ID: 6 | Qty: 66.0 | Price: 3650000.0 | Total: 240900000.0
+  Line -> Prod ID: 7 | Qty: 61.0 | Price: 1150000.0 | Total: 68045500.0
+ID: 20 | Quote No: BG-2026-000020 | Status: Đã gửi khách | Grand Total: 240753090.0
+  Line -> Prod ID: 4 | Qty: 96.0 | Price: 1250000.0 | Total: 110400000.0
+  Line -> Prod ID: 1 | Qty: 85.0 | Price: 235000.0 | Total: 17977500.0
+  Line -> Prod ID: 5 | Qty: 21.0 | Price: 420000.0 | Total: 8114400.0
+  Line -> Prod ID: 7 | Qty: 77.0 | Price: 1150000.0 | Total: 79695000.0
+  Line -> Prod ID: 2 | Qty: 25.0 | Price: 89000.0 | Total: 2225000.0
+ID: 19 | Quote No: BG-2026-000019 | Status: Đang đàm phán | Grand Total: 176591300.0
+  Line -> Prod ID: 5 | Qty: 6.0 | Price: 420000.0 | Total: 2394000.0
+  Line -> Prod ID: 1 | Qty: 28.0 | Price: 235000.0 | Total: 6251000.0
+  Line -> Prod ID: 8 | Qty: 85.0 | Price: 590000.0 | Total: 46138000.0
+  Line -> Prod ID: 4 | Qty: 18.0 | Price: 1250000.0 | Total: 22500000.0
+  Line -> Prod ID: 7 | Qty: 80.0 | Price: 1150000.0 | Total: 82800000.0
+ID: 18 | Quote No: BG-2026-000018 | Status: Chờ Giám đốc duyệt | Grand Total: 143557090.0
+  Line -> Prod ID: 4 | Qty: 79.0 | Price: 1250000.0 | Total: 90850000.0
+  Line -> Prod ID: 3 | Qty: 54.0 | Price: 95000.0 | Total: 4617000.0
+  Line -> Prod ID: 5 | Qty: 25.0 | Price: 420000.0 | Total: 10500000.0
+  Line -> Prod ID: 8 | Qty: 44.0 | Price: 590000.0 | Total: 23364000.0
+  Line -> Prod ID: 2 | Qty: 9.0 | Price: 89000.0 | Total: 720900.0
+ID: 17 | Quote No: BG-2026-000017 | Status: Chờ Giám đốc duyệt | Grand Total: 66503800.0
+  Line -> Prod ID: 4 | Qty: 27.0 | Price: 1250000.0 | Total: 31050000.0
+  Line -> Prod ID: 5 | Qty: 40.0 | Price: 420000.0 | Total: 15120000.0
+  Line -> Prod ID: 1 | Qty: 64.0 | Price: 235000.0 | Total: 14288000.0

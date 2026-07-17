@@ -1,0 +1,364 @@
+<script>
+/* ============================================================
+   NEXUS CRM — Components.html
+   Các hàm render trả HTML string cho từng view.
+   Logic & sự kiện nằm ở Script.html.
+   ============================================================ */
+const C = {};
+
+/* ---------- LOGIN ---------- */
+C.login = function(googleEmail){
+  return `
+  <div class="login-wrap">
+    <div class="login-card">
+      <div class="brand-lg"><i class="fa-solid fa-bolt"></i> NEXUS CRM</div>
+      <div class="login-sub">Hệ thống quản lý khách hàng đa kênh</div>
+
+      ${googleEmail ? `
+        <button class="btn btn-google w-100 py-2 mb-1" onclick="App.googleLogin()">
+          <i class="fa-brands fa-google text-primary me-2"></i> Tiếp tục với ${googleEmail}
+        </button>
+        <div class="divider">hoặc đăng nhập bằng mật khẩu</div>
+      ` : ``}
+
+      <div class="mb-3">
+        <label class="form-label small fw-600">Email</label>
+        <input id="li-email" type="email" class="form-control" placeholder="email@congty.com" autocomplete="username">
+      </div>
+      <div class="mb-3">
+        <label class="form-label small fw-600">Mật khẩu</label>
+        <input id="li-pass" type="password" class="form-control" placeholder="••••••••" autocomplete="current-password"
+               onkeydown="if(event.key==='Enter')App.login()">
+      </div>
+      <button class="btn btn-primary w-100 py-2" onclick="App.login()">
+        <i class="fa-solid fa-right-to-bracket me-2"></i> Đăng nhập
+      </button>
+      <div class="text-center mt-3 small text-muted">v1.0 · Phase 1</div>
+    </div>
+  </div>`;
+};
+
+/* ---------- APP SHELL ---------- */
+C.shell = function(user){
+  const menu = [
+    {k:'dashboard', i:'fa-chart-pie',     t:'Dashboard'},
+    {k:'customers', i:'fa-users',         t:'Khách hàng'},
+    {k:'pipeline',  i:'fa-diagram-project',t:'Pipeline'},
+    {k:'quotation', i:'fa-file-invoice-dollar', t:'Báo giá'},
+    {k:'report',    i:'fa-chart-column',  t:'Báo cáo',  roles:['Admin','Manager']},
+    {k:'admin',     i:'fa-gear',          t:'Quản trị', roles:['Admin']}
+  ];
+  const items = menu.filter(m=>!m.roles||m.roles.includes(user.role)).map(m=>
+    `<div class="nav-item" data-view="${m.k}" onclick="App.go('${m.k}')">
+       <i class="fa-solid ${m.i}"></i><span>${m.t}</span></div>`).join('');
+
+  return `
+  <div class="layout">
+    <div class="sb-backdrop" id="sbBackdrop" onclick="App.toggleSidebar(false)"></div>
+    <aside class="sidebar" id="sidebar">
+      <div class="brand"><i class="fa-solid fa-bolt"></i> NEXUS CRM</div>
+      <nav class="nav-menu">
+        <div class="nav-label">Tổng quan</div>
+        ${items}
+      </nav>
+      <div class="side-foot">Đăng nhập:<br><b>${user.name}</b> · ${user.role}</div>
+    </aside>
+
+    <div class="main">
+      <header class="topbar">
+        <button class="btn-icon menu-toggle" onclick="App.toggleSidebar(true)"><i class="fa-solid fa-bars"></i></button>
+        <h1 class="page-title" id="pageTitle">Dashboard</h1>
+        <div class="company-selector-wrap ms-3" style="max-width:260px">
+          <select id="activeCompanySelect" class="form-select form-select-sm" onchange="App.switchCompany(this.value)" style="border-radius:8px; border-color:var(--border-color); background-color:var(--bg-card); color:var(--text-main); font-weight:600;">
+            <!-- Rendered dynamically -->
+          </select>
+        </div>
+        <div class="sp"></div>
+        <button class="btn-icon" onclick="App.toggleDark()" title="Chế độ tối"><i class="fa-solid fa-moon"></i></button>
+        <button class="btn-icon" onclick="App.refresh()" title="Tải lại"><i class="fa-solid fa-rotate"></i></button>
+        <div class="dropdown">
+          <div class="user-chip" data-bs-toggle="dropdown">
+            <div class="avatar">${user.name.charAt(0).toUpperCase()}</div>
+            <div class="d-none d-md-block"><div class="fw-600" style="font-size:13px">${user.name}</div>
+              <div class="text-muted" style="font-size:11px">${user.email}</div></div>
+            <i class="fa-solid fa-chevron-down small text-muted"></i>
+          </div>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li><h6 class="dropdown-header">${user.email}</h6></li>
+            <li><a class="dropdown-item" href="#" onclick="App.logout();return false">
+              <i class="fa-solid fa-right-from-bracket me-2"></i> Đăng xuất</a></li>
+          </ul>
+        </div>
+      </header>
+      <main class="content" id="viewRoot"></main>
+    </div>
+  </div>
+  <div class="overlay" id="overlay"><div class="spinner-border text-light"></div></div>`;
+};
+
+/* ---------- DASHBOARD ---------- */
+C.dashboard = function(d){
+  const f = App.fmtMoney;
+  const card = (ico,cls,val,lbl)=>`
+    <div class="kpi-card">
+      <div class="kpi-ico ${cls}"><i class="fa-solid ${ico}"></i></div>
+      <div class="kpi-val">${val}</div><div class="kpi-lbl">${lbl}</div>
+    </div>`;
+  const c = d.cards;
+  let kpiTable = '';
+  if (d.kpiSale && d.kpiSale.length){
+    kpiTable = `
+    <div class="card-n mt-3"><div class="card-head"><i class="fa-solid fa-ranking-star text-primary"></i>
+      <h5>KPI nhân viên Sale</h5></div>
+      <div class="card-body table-responsive"><table class="table table-hover align-middle mb-0">
+        <thead><tr><th>Nhân viên</th><th class="text-end">Deals</th><th class="text-end">Won</th><th class="text-end">Doanh thu</th></tr></thead>
+        <tbody>${d.kpiSale.map(s=>`<tr><td>${s.sale}</td><td class="text-end">${s.deals}</td>
+          <td class="text-end">${s.won}</td><td class="text-end fw-700 text-primary">${f(s.revenue)}</td></tr>`).join('')}
+        </tbody></table></div></div>`;
+  }
+  return `
+  <div class="kpi-grid">
+    ${card('fa-users','ico-blue', c.totalCustomers, 'Tổng khách hàng')}
+    ${card('fa-user-plus','ico-green', c.newToday, 'Khách mới hôm nay')}
+    ${card('fa-headset','ico-amber', c.caring, 'Đang chăm sóc')}
+    ${card('fa-sack-dollar','ico-purple', f(c.revenue), 'Doanh thu (Won)')}
+    ${card('fa-bullseye','ico-pink', c.convRate+'%', 'Tỷ lệ chuyển đổi')}
+    ${card('fa-trophy','ico-cyan', c.wonDeals, 'Deal đã chốt')}
+  </div>
+  <div class="row g-3">
+    <div class="col-lg-8"><div class="card-n h-100"><div class="card-head">
+      <i class="fa-solid fa-chart-line text-primary"></i><h5>Doanh thu 6 tháng</h5></div>
+      <div class="card-body"><canvas id="chartLine" height="110"></canvas></div></div></div>
+    <div class="col-lg-4"><div class="card-n h-100"><div class="card-head">
+      <i class="fa-solid fa-chart-pie text-primary"></i><h5>Khách theo nguồn</h5></div>
+      <div class="card-body"><canvas id="chartPie" height="200"></canvas></div></div></div>
+    <div class="col-lg-12"><div class="card-n"><div class="card-head">
+      <i class="fa-solid fa-chart-simple text-primary"></i><h5>Deals theo giai đoạn</h5></div>
+      <div class="card-body"><canvas id="chartBar" height="80"></canvas></div></div></div>
+  </div>
+  ${kpiTable}`;
+};
+
+/* ---------- CUSTOMERS ---------- */
+C.customers = function(opts){
+  const srcOpt = opts.SOURCES.map(s=>`<option>${s}</option>`).join('');
+  const stOpt  = opts.STATUSES.map(s=>`<option>${s}</option>`).join('');
+  return `
+  <div class="toolbar">
+    <div class="search-box"><i class="fa-solid fa-magnifying-glass"></i>
+      <input id="cusSearch" class="form-control" placeholder="Tìm tên, SĐT, email, tag…" oninput="App.debouncedLoadCustomers()"></div>
+    <select id="cusSource" class="form-select" style="width:auto" onchange="App.loadCustomers()">
+      <option value="">Mọi nguồn</option>${srcOpt}</select>
+    <select id="cusStatus" class="form-select" style="width:auto" onchange="App.loadCustomers()">
+      <option value="">Mọi trạng thái</option>${stOpt}</select>
+    <div class="sp" style="flex:1"></div>
+    <button class="btn btn-outline-secondary" onclick="App.importCustomers()"><i class="fa-solid fa-file-import me-1"></i> Import</button>
+    <button class="btn btn-outline-secondary" onclick="App.exportCustomers()"><i class="fa-solid fa-file-export me-1"></i> Export</button>
+    <button class="btn btn-primary" onclick="App.openCustomerModal()"><i class="fa-solid fa-plus me-1"></i> Thêm khách</button>
+  </div>
+  <div class="card-n"><div class="card-body table-responsive">
+    <table id="cusTable" class="table table-hover align-middle" style="width:100%">
+      <thead><tr><th>Khách hàng</th><th>Liên hệ</th><th>Nguồn</th><th>Trạng thái</th><th>Phụ trách</th><th>Tag</th><th></th></tr></thead>
+      <tbody id="cusBody"></tbody>
+    </table>
+  </div></div>`;
+};
+
+C.customerRow = function(c){
+  return `<tr>
+    <td><div class="fw-600">${App.esc(c.name)}</div><div class="text-muted small">${new Date(c.createdAt).toLocaleDateString('vi-VN')}</div></td>
+    <td><div>${App.esc(c.phone)}</div><div class="text-muted small">${App.esc(c.email||'')}</div></td>
+    <td><span class="badge-soft bg-active">${c.source}</span></td>
+    <td>${App.statusBadge(c.status)}</td>
+    <td class="small">${App.esc(c.assignedTo||'')}</td>
+    <td>${(c.tags||'').split(',').filter(Boolean).map(t=>`<span class="tag-pill">${App.esc(t.trim())}</span>`).join('')}</td>
+    <td class="text-end text-nowrap">
+      <button class="btn-icon" onclick="App.viewCustomer('${c.id}')" title="Xem"><i class="fa-solid fa-eye"></i></button>
+      <button class="btn-icon" onclick="App.openCustomerModal('${c.id}')" title="Sửa"><i class="fa-solid fa-pen"></i></button>
+    </td></tr>`;
+};
+
+/* ---------- PIPELINE (Kanban) ---------- */
+C.pipeline = function(board, stages){
+  const dot = {Lead:'#6366F1',Contacted:'#0EA5E9',Proposal:'#D97706',Negotiation:'#DB2777',Won:'#16A34A',Lost:'#DC2626'};
+  const cols = stages.map(s=>{
+    const list = board[s]||[];
+    const cards = list.map(d=>`
+      <div class="kb-card" data-id="${d.id}" onclick="App.openDealModal('${d.id}')">
+        <div class="kb-title">${App.esc(d.title)}</div>
+        <div class="kb-cus"><i class="fa-solid fa-user me-1"></i>${App.esc(d.customerName)}</div>
+        <div class="kb-val">${App.fmtMoney(d.value)}</div>
+      </div>`).join('');
+    return `<div class="kb-col">
+      <div class="kb-head"><span><span class="kb-stage-dot" style="background:${dot[s]}"></span>${s}</span>
+        <span class="cnt">${list.length}</span></div>
+      <div class="kb-body" data-stage="${s}">${cards||'<div class="text-muted small text-center py-3">Trống</div>'}</div>
+    </div>`;
+  }).join('');
+  return `
+  <div class="toolbar"><h5 class="mb-0 fw-display">Pipeline bán hàng</h5><div class="sp" style="flex:1"></div>
+    <button class="btn btn-primary" onclick="App.openDealModal()"><i class="fa-solid fa-plus me-1"></i> Thêm deal</button></div>
+  <div class="kanban" id="kanban">${cols}</div>`;
+};
+
+/* ---------- REPORT ---------- */
+C.report = function(r){
+  const f = App.fmtMoney;
+  return `
+  <div class="kpi-grid">
+    <div class="kpi-card"><div class="kpi-ico ico-purple"><i class="fa-solid fa-sack-dollar"></i></div>
+      <div class="kpi-val">${f(r.summary.totalRevenue)}</div><div class="kpi-lbl">Tổng doanh thu</div></div>
+    <div class="kpi-card"><div class="kpi-ico ico-green"><i class="fa-solid fa-trophy"></i></div>
+      <div class="kpi-val">${r.summary.wonDeals}</div><div class="kpi-lbl">Deal thắng</div></div>
+    <div class="kpi-card"><div class="kpi-ico ico-pink"><i class="fa-solid fa-bullseye"></i></div>
+      <div class="kpi-val">${r.summary.convRate}%</div><div class="kpi-lbl">Tỷ lệ chuyển đổi</div></div>
+    <div class="kpi-card"><div class="kpi-ico ico-blue"><i class="fa-solid fa-users"></i></div>
+      <div class="kpi-val">${r.summary.totalCustomers}</div><div class="kpi-lbl">Tổng khách</div></div>
+  </div>
+  <div class="row g-3">
+    <div class="col-lg-7"><div class="card-n"><div class="card-head"><i class="fa-solid fa-chart-line text-primary"></i><h5>Doanh thu theo tháng</h5></div>
+      <div class="card-body"><canvas id="rpMonth" height="120"></canvas></div></div></div>
+    <div class="col-lg-5"><div class="card-n"><div class="card-head"><i class="fa-solid fa-signal text-primary"></i><h5>Hiệu quả theo nguồn</h5></div>
+      <div class="card-body table-responsive"><table class="table table-sm align-middle mb-0">
+        <thead><tr><th>Nguồn</th><th class="text-end">Khách</th><th class="text-end">Won</th><th class="text-end">Doanh thu</th></tr></thead>
+        <tbody>${r.bySource.map(s=>`<tr><td>${s.source}</td><td class="text-end">${s.customers}</td>
+          <td class="text-end">${s.won}</td><td class="text-end fw-600">${f(s.revenue)}</td></tr>`).join('')}</tbody>
+      </table></div></div></div>
+    <div class="col-lg-12"><div class="card-n"><div class="card-head"><i class="fa-solid fa-user-tie text-primary"></i><h5>Hiệu quả theo nhân viên</h5></div>
+      <div class="card-body table-responsive"><table class="table table-hover align-middle mb-0">
+        <thead><tr><th>Nhân viên</th><th class="text-end">Deals</th><th class="text-end">Won</th><th class="text-end">Lost</th><th class="text-end">Tỷ lệ</th><th class="text-end">Doanh thu</th></tr></thead>
+        <tbody>${r.bySale.map(s=>`<tr><td>${s.sale}</td><td class="text-end">${s.deals}</td><td class="text-end text-success">${s.won}</td>
+          <td class="text-end text-danger">${s.lost}</td><td class="text-end">${s.convRate}%</td>
+          <td class="text-end fw-700 text-primary">${f(s.revenue)}</td></tr>`).join('')}</tbody>
+      </table></div></div></div>
+  </div>`;
+};
+
+/* ---------- ADMIN ---------- */
+C.admin = function(){
+  return `
+  <ul class="nav nav-pills mb-3" id="adminTabs">
+    <li class="nav-item"><button class="nav-link active" onclick="App.adminTab('users',this)">Người dùng</button></li>
+    <li class="nav-item"><button class="nav-link" onclick="App.adminTab('companies',this)">Công ty</button></li>
+    <li class="nav-item"><button class="nav-link" onclick="App.adminTab('templates',this)">Mẫu email</button></li>
+    <li class="nav-item"><button class="nav-link" onclick="App.adminTab('audit',this)">Nhật ký</button></li>
+    <li class="nav-item"><button class="nav-link" onclick="App.adminTab('backup',this)">Sao lưu</button></li>
+    <li class="nav-item ms-auto"><button class="btn btn-sm btn-outline-secondary" onclick="App.scanGmail()"><i class="fa-solid fa-envelope-open-text me-1"></i> Quét Gmail</button></li>
+  </ul>
+  <div id="adminPane"></div>`;
+};
+
+C.adminCompanies = function(list){
+  return `
+  <div class="toolbar"><div class="sp" style="flex:1"></div>
+    <button class="btn btn-primary" onclick="App.openCompanyModal()"><i class="fa-solid fa-plus me-1"></i> Khai báo công ty</button></div>
+  <div class="card-n"><div class="card-body table-responsive"><table class="table table-hover align-middle mb-0">
+    <thead><tr><th>Mã công ty</th><th>Tên công ty</th><th>Mã số thuế</th><th>Địa chỉ</th><th>Điện thoại & Email</th></tr></thead>
+    <tbody>${list.map(c=>`<tr>
+      <td class="fw-600"><span class="badge-soft bg-active">${App.esc(c.code)}</span></td>
+      <td class="fw-600">${App.esc(c.name)}</td>
+      <td>${App.esc(c.tax_code||'—')}</td>
+      <td class="small">${App.esc(c.address||'—')}</td>
+      <td class="small">${App.esc(c.phone_email||'—')}</td>
+      </tr>`).join('')}</tbody></table></div></div>`;
+};
+C.adminUsers = function(users){
+  return `
+  <div class="toolbar"><div class="sp" style="flex:1"></div>
+    <button class="btn btn-primary" onclick="App.openUserModal()"><i class="fa-solid fa-user-plus me-1"></i> Thêm user</button></div>
+  <div class="card-n"><div class="card-body table-responsive"><table class="table table-hover align-middle mb-0">
+    <thead><tr><th>Tên</th><th>Email</th><th>Vai trò</th><th>Trạng thái</th><th>Đăng nhập cuối</th><th></th></tr></thead>
+    <tbody>${users.map(u=>`<tr>
+      <td class="fw-600">${App.esc(u.name)}</td><td>${App.esc(u.email)}</td>
+      <td><span class="badge-soft bg-active">${u.role}</span></td>
+      <td>${u.status==='active'?'<span class="badge-soft bg-won">active</span>':'<span class="badge-soft bg-lost">khoá</span>'}</td>
+      <td class="small text-muted">${u.lastLogin?new Date(u.lastLogin).toLocaleString('vi-VN'):'—'}</td>
+      <td class="text-end text-nowrap">
+        <button class="btn-icon" onclick="App.openUserModal('${u.id}')"><i class="fa-solid fa-pen"></i></button>
+        <button class="btn-icon" onclick="App.deleteUser('${u.id}')"><i class="fa-solid fa-trash"></i></button>
+      </td></tr>`).join('')}</tbody></table></div></div>`;
+};
+C.adminAudit = function(rows){
+  return `<div class="card-n"><div class="card-body table-responsive"><table class="table table-sm table-hover align-middle mb-0">
+    <thead><tr><th>Thời gian</th><th>User</th><th>Hành động</th><th>Đối tượng</th><th>Chi tiết</th></tr></thead>
+    <tbody>${rows.map(r=>`<tr><td class="small">${new Date(r.timestamp).toLocaleString('vi-VN')}</td>
+      <td class="small">${App.esc(r.user)}</td><td><span class="tag-pill">${r.action}</span></td>
+      <td class="small">${r.target}</td><td class="small text-muted">${App.esc(String(r.detail||''))}</td></tr>`).join('')
+      ||'<tr><td colspan="5" class="text-center text-muted py-3">Chưa có nhật ký</td></tr>'}</tbody>
+  </table></div></div>`;
+};
+C.adminBackup = function(list){
+  return `
+  <div class="toolbar"><div class="sp" style="flex:1"></div>
+    <button class="btn btn-primary" onclick="App.doBackup()"><i class="fa-solid fa-database me-1"></i> Sao lưu ngay</button></div>
+  <div class="card-n"><div class="card-body table-responsive"><table class="table table-hover align-middle mb-0">
+    <thead><tr><th>Tên bản sao</th><th>Thời gian</th><th></th></tr></thead>
+    <tbody>${list.map(b=>`<tr><td class="fw-600">${App.esc(b.name)}</td>
+      <td class="small text-muted">${new Date(b.created).toLocaleString('vi-VN')}</td>
+      <td class="text-end"><a class="btn btn-sm btn-outline-secondary" target="_blank" href="${b.url}">Mở</a></td></tr>`).join('')
+      ||'<tr><td colspan="3" class="text-center text-muted py-3">Chưa có bản sao lưu</td></tr>'}</tbody>
+  </table></div></div>`;
+};
+
+/* ---------- PHASE 3: AI panel (trong customer detail) ---------- */
+C.aiPanel = function(id){
+  return `
+  <div class="card-n mt-3"><div class="card-head">
+    <i class="fa-solid fa-robot text-primary"></i><h5>Trợ lý AI</h5>
+    <span class="sp" style="flex:1"></span>
+    <span id="aiProvBadge" class="tag-pill"></span></div>
+    <div class="card-body">
+      <div class="d-flex flex-wrap gap-2 mb-3">
+        <button class="btn btn-sm btn-outline-primary" onclick="App.aiRun('suggest','${id}')"><i class="fa-solid fa-lightbulb me-1"></i> Gợi ý kịch bản</button>
+        <button class="btn btn-sm btn-outline-primary" onclick="App.aiRun('score','${id}')"><i class="fa-solid fa-gauge-high me-1"></i> Chấm điểm</button>
+        <button class="btn btn-sm btn-outline-primary" onclick="App.aiRun('tag','${id}')"><i class="fa-solid fa-tags me-1"></i> Auto-tag</button>
+        <button class="btn btn-sm btn-outline-primary" onclick="App.aiRun('summary','${id}')"><i class="fa-solid fa-file-lines me-1"></i> Tóm tắt</button>
+      </div>
+      <div id="aiResult" class="tl-body" style="white-space:pre-wrap;display:none"></div>
+    </div></div>`;
+};
+
+/* ---------- PHASE 3: Files panel ---------- */
+C.filesPanel = function(id, files){
+  const list = (files||[]).map(f=>`<div class="d-flex justify-content-between align-items-center border-bottom py-2">
+    <a href="${f.url}" target="_blank"><i class="fa-solid fa-paperclip me-1"></i>${App.esc(f.name)}</a>
+    <span class="small text-muted">${new Date(f.at).toLocaleDateString('vi-VN')}</span></div>`).join('')
+    || '<div class="text-muted small">Chưa có file</div>';
+  return `<div class="card-n mt-3"><div class="card-head"><i class="fa-solid fa-folder-open text-primary"></i><h5>Tệp đính kèm</h5>
+    <span class="sp" style="flex:1"></span>
+    <button class="btn btn-sm btn-primary" onclick="App.uploadFile('${id}')"><i class="fa-solid fa-upload me-1"></i> Tải lên</button></div>
+    <div class="card-body" id="filesList">${list}</div></div>`;
+};
+
+/* ---------- PHASE 2: Follow-up panel ---------- */
+C.followPanel = function(id, fus){
+  const list=(fus||[]).map(f=>`<div class="d-flex justify-content-between align-items-center border-bottom py-2">
+    <div><i class="fa-regular fa-calendar-check me-1 ${f.status==='done'?'text-success':'text-warning'}"></i>
+      <b>${f.dueDate} ${f.dueTime||''}</b> — ${App.esc(f.content)}
+      ${f.status==='done'?'<span class="badge-soft bg-won ms-1">xong</span>':''}</div>
+    <div>${f.status!=='done'?`<button class="btn-icon" onclick="App.doneFollowUp('${f.id}','${id}')" title="Hoàn thành"><i class="fa-solid fa-check"></i></button>`:''}
+      <button class="btn-icon" onclick="App.deleteFollowUp('${f.id}','${id}')"><i class="fa-solid fa-trash"></i></button></div>
+  </div>`).join('')||'<div class="text-muted small">Chưa có lịch hẹn</div>';
+  return `<div class="card-n mt-3"><div class="card-head"><i class="fa-solid fa-bell text-primary"></i><h5>Lịch follow-up</h5>
+    <span class="sp" style="flex:1"></span>
+    <button class="btn btn-sm btn-primary" onclick="App.openFollowModal('${id}')"><i class="fa-solid fa-plus me-1"></i> Đặt lịch</button></div>
+    <div class="card-body" id="followList">${list}</div></div>`;
+};
+
+/* ---------- PHASE 2: Email templates (tab admin) ---------- */
+C.adminTemplates = function(tpls){
+  return `
+  <div class="toolbar"><div class="sp" style="flex:1"></div>
+    <button class="btn btn-primary" onclick="App.openTemplateModal()"><i class="fa-solid fa-plus me-1"></i> Thêm mẫu email</button></div>
+  <div class="card-n"><div class="card-body table-responsive"><table class="table table-hover align-middle mb-0">
+    <thead><tr><th>Tên</th><th>Kích hoạt</th><th>Chủ đề</th><th>Trạng thái</th><th></th></tr></thead>
+    <tbody>${tpls.map(t=>`<tr><td class="fw-600">${App.esc(t.name)}</td>
+      <td><span class="tag-pill">${t.trigger}</span></td><td class="small">${App.esc(t.subject)}</td>
+      <td>${t.active==='yes'?'<span class="badge-soft bg-won">bật</span>':'<span class="badge-soft bg-lost">tắt</span>'}</td>
+      <td class="text-end text-nowrap">
+        <button class="btn-icon" onclick="App.openTemplateModal('${t.id}')"><i class="fa-solid fa-pen"></i></button>
+        <button class="btn-icon" onclick="App.deleteTemplate('${t.id}')"><i class="fa-solid fa-trash"></i></button>
+      </td></tr>`).join('')||'<tr><td colspan="5" class="text-center text-muted py-3">Chưa có mẫu email</td></tr>'}</tbody>
+  </table></div></div>`;
+};
+</script>

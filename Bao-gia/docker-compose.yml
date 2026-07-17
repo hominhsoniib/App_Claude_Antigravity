@@ -1,0 +1,12 @@
+version: "3.8"
+services:
+  quoteflow:
+    build: .
+    container_name: quoteflow_os
+    ports:
+      - "8501:8501"
+    volumes:
+      - ./quoteflow.db:/app/quoteflow.db
+      - ./exports:/app/exports
+      - ./uploads:/app/uploads
+    restart: unless-stopped

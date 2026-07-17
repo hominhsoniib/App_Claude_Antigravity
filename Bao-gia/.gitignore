@@ -1,0 +1,7 @@
+.env
+quoteflow.db
+__pycache__/
+*.pyc
+exports/*.pdf
+exports/*.xlsx
+uploads/*

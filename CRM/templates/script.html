@@ -1,0 +1,638 @@
+<script>
+/* ============================================================
+   NEXUS CRM — Script.html
+   Core: API wrapper · state · router · handlers · modals · charts
+   ============================================================ */
+const App = (function(){
+
+  const state = { token:null, user:null, options:null, view:null, charts:{}, dt:null, _t:null };
+
+  /* ---------- API: promisify Fetch/FastAPI ---------- */
+  function call(fn, ...args){
+    const company = localStorage.getItem('nx_company') || 'default';
+    return new Promise((resolve, reject)=>{
+      fetch(`/api/${fn}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Company-Code': company
+        },
+        body: JSON.stringify(args)
+      })
+      .then(res => {
+        if (!res.ok) {
+          throw new Error('HTTP Error: ' + res.status);
+        }
+        return res.json();
+      })
+      .then(res=>{
+        if (res && res.ok === false){
+          if (String(res.error||'').indexOf('AUTH:')===0){ handleAuthError(res.error); reject(res.error); return; }
+          reject(res.error || 'Lỗi không xác định');
+        } else resolve(res ? res.data : null);
+      })
+      .catch(e => reject(e && e.message ? e.message : String(e)));
+    });
+  }
+  function handleAuthError(msg){
+    localStorage.removeItem('nx_token');
+    toast(msg.replace('AUTH:','').trim(),'err');
+    setTimeout(renderLogin, 800);
+  }
+
+  /* ---------- UI helpers ---------- */
+  function $(id){ return document.getElementById(id); }
+  function overlay(on){ const o=$('overlay'); if(o) o.classList.toggle('show',on); }
+  function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+  function fmtMoney(n){ n=Number(n)||0;
+    if(n>=1e9) return (n/1e9).toFixed(n%1e9?1:0)+' tỷ';
+    if(n>=1e6) return (n/1e6).toFixed(n%1e6?1:0)+' tr';
+    return n.toLocaleString('vi-VN')+' đ'; }
+  function toast(msg,type){
+    const z=$('toast-zone'); const el=document.createElement('div');
+    el.className='toast-n '+(type==='err'?'err':type==='ok'?'ok':'');
+    z.appendChild(el);
+    el.innerHTML=`<i class="fa-solid ${type==='err'?'fa-circle-exclamation':type==='ok'?'fa-circle-check':'fa-circle-info'}"></i><span>${esc(msg)}</span>`;
+    setTimeout(()=>{el.style.opacity='0'; setTimeout(()=>el.remove(),300);},3200);
+  }
+  function statusBadge(s){
+    const m={'Lead':'bg-lead','Tiềm năng':'bg-warm','Đang tư vấn':'bg-active','Đàm phán':'bg-nego','Đã chốt':'bg-won','Thất bại':'bg-lost'};
+    return `<span class="badge-soft ${m[s]||'bg-lead'}">${s}</span>`;
+  }
+
+  /* ---------- BOOT ---------- */
+  async function boot(){
+    state.token = localStorage.getItem('nx_token');
+    try{
+      const data = await call('apiBootstrap', state.token);
+      state.options = data.options;
+      if (data.user){ state.user = data.user; renderShell(); go('dashboard'); }
+      else renderLogin();
+    }catch(e){ renderLogin(); }
+  }
+
+  /* ---------- LOGIN ---------- */
+  async function renderLogin(){
+    let gmail='';
+    try{ gmail = await call('apiCurrentGoogleEmail'); }catch(e){}
+    $('app').innerHTML = C.login(gmail);
+  }
+  async function login(){
+    const email=$('li-email').value.trim(), pass=$('li-pass').value;
+    if(!email||!pass){ toast('Nhập email và mật khẩu','err'); return; }
+    overlay(true);
+    try{
+      const d = await call('apiLogin', email, pass);
+      afterLogin(d);
+    }catch(e){ toast(e,'err'); } finally{ overlay(false); }
+  }
+  async function googleLogin(){
+    overlay(true);
+    try{ const d = await call('apiGoogleLogin'); afterLogin(d); }
+    catch(e){ toast(e,'err'); } finally{ overlay(false); }
+  }
+  function afterLogin(d){
+    state.token=d.token; state.user={name:d.name,role:d.role,email:d.email};
+    localStorage.setItem('nx_token', d.token);
+    toast('Xin chào '+d.name,'ok');
+    renderShell(); go('dashboard');
+  }
+  async function logout(){
+    try{ await call('apiLogout', state.token); }catch(e){}
+    localStorage.removeItem('nx_token'); state.token=null; state.user=null;
+    renderLogin();
+  }
+
+  /* ---------- SHELL / ROUTER ---------- */
+  async function renderShell(){
+    $('app').innerHTML = C.shell(state.user);
+    applyDark(localStorage.getItem('nx_dark')==='1');
+    await loadCompanySelector();
+  }
+  async function loadCompanySelector(){
+    try {
+      const list = await call('apiListCompanies');
+      const select = $('activeCompanySelect');
+      if (select) {
+        const active = localStorage.getItem('nx_company') || 'default';
+        select.innerHTML = list.map(c => `<option value="${c.code}" ${c.code===active?'selected':''}>${esc(c.name)}</option>`).join('');
+      }
+    } catch(e) { console.error('Failed to load company list:', e); }
+  }
+  function switchCompany(code){
+    localStorage.setItem('nx_company', code);
+    toast('Đang chuyển đổi cơ sở dữ liệu...', 'ok');
+    setTimeout(() => window.location.reload(), 400);
+  }
+  const titles={dashboard:'Dashboard',customers:'Khách hàng',pipeline:'Pipeline bán hàng',quotation:'Quản lý Báo giá (Quoteflow OS)',report:'Báo cáo',admin:'Quản trị hệ thống'};
+  function go(view){
+    state.view=view;
+    document.querySelectorAll('.nav-item').forEach(n=>n.classList.toggle('active',n.dataset.view===view));
+    const pt=$('pageTitle'); if(pt) pt.textContent=titles[view]||view;
+    toggleSidebar(false);
+    if(view==='dashboard') viewDashboard();
+    else if(view==='customers') viewCustomers();
+    else if(view==='pipeline') viewPipeline();
+    else if(view==='quotation') viewQuotation();
+    else if(view==='report') viewReport();
+    else if(view==='admin') viewAdmin();
+  }
+  function refresh(){ go(state.view||'dashboard'); }
+
+  /* ---------- DASHBOARD ---------- */
+  async function viewDashboard(){
+    overlay(true);
+    try{
+      const d = await call('apiDashboard', state.token);
+      $('viewRoot').innerHTML = C.dashboard(d);
+      drawCharts(d);
+    }catch(e){ toast(e,'err'); } finally{ overlay(false); }
+  }
+  function drawCharts(d){
+    Object.values(state.charts).forEach(c=>{try{c.destroy()}catch(e){}}); state.charts={};
+    const blue='#2563EB', palette=['#2563EB','#3B82F6','#16A34A','#D97706','#DB2777','#0891B2'];
+    state.charts.line=new Chart($('chartLine'),{type:'line',
+      data:{labels:d.lineChart.labels,datasets:[{label:'Doanh thu',data:d.lineChart.data,
+        borderColor:blue,backgroundColor:'rgba(37,99,235,.12)',fill:true,tension:.35,pointRadius:4}]},
+      options:{plugins:{legend:{display:false}},scales:{y:{ticks:{callback:v=>fmtMoney(v)}}},maintainAspectRatio:false}});
+    state.charts.pie=new Chart($('chartPie'),{type:'doughnut',
+      data:{labels:d.pieChart.labels,datasets:[{data:d.pieChart.data,backgroundColor:palette}]},
+      options:{plugins:{legend:{position:'bottom'}},maintainAspectRatio:false,cutout:'62%'}});
+    state.charts.bar=new Chart($('chartBar'),{type:'bar',
+      data:{labels:d.barChart.labels,datasets:[{label:'Số deal',data:d.barChart.data,
+        backgroundColor:blue,borderRadius:6}]},
+      options:{plugins:{legend:{display:false}},maintainAspectRatio:false}});
+  }
+
+  /* ---------- CUSTOMERS ---------- */
+  function viewCustomers(){
+    $('viewRoot').innerHTML = C.customers(state.options);
+    loadCustomers();
+  }
+  function debouncedLoadCustomers(){ clearTimeout(state._t); state._t=setTimeout(loadCustomers,300); }
+  async function loadCustomers(){
+    const q={ search:$('cusSearch')?.value||'', source:$('cusSource')?.value||'',
+              status:$('cusStatus')?.value||'', page:1, pageSize:200 };
+    overlay(true);
+    try{
+      const res = await call('apiListCustomers', state.token, q);
+      if(state.dt){ state.dt.destroy(); state.dt=null; }
+      $('cusBody').innerHTML = res.rows.map(C.customerRow).join('') ||
+        '<tr><td colspan="7"><div class="empty"><i class="fa-solid fa-users"></i>Chưa có khách hàng</div></td></tr>';
+      if(res.rows.length){
+        state.dt = jQuery('#cusTable').DataTable({pageLength:10,order:[],
+          language:{search:'',searchPlaceholder:'Lọc nhanh…',lengthMenu:'_MENU_ dòng',
+            info:'_START_–_END_ / _TOTAL_',paginate:{previous:'‹',next:'›'},zeroRecords:'Không có dữ liệu'},
+          columnDefs:[{targets:-1,orderable:false}]});
+      }
+    }catch(e){ toast(e,'err'); } finally{ overlay(false); }
+  }
+
+  /* ---------- CUSTOMER MODAL ---------- */
+  async function openCustomerModal(id){
+    let c={name:'',phone:'',email:'',source:'Website',status:'Lead',tags:'',assignedTo:state.user.email};
+    let sales=[];
+    try{ sales = await call('apiSalesList', state.token); }catch(e){}
+    if(id){ const data=await call('apiGetCustomer',state.token,id); c=data.customer; }
+    const opt=(arr,sel)=>arr.map(x=>`<option ${x===sel?'selected':''}>${x}</option>`).join('');
+    const salesOpt=sales.map(s=>`<option value="${s.email}" ${s.email===c.assignedTo?'selected':''}>${esc(s.name)} (${s.role})</option>`).join('');
+    modal(id?'Sửa khách hàng':'Thêm khách hàng', `
+      <div class="row g-3">
+        <div class="col-md-6"><label class="form-label small fw-600">Tên *</label><input id="m-name" class="form-control" value="${esc(c.name)}"></div>
+        <div class="col-md-6"><label class="form-label small fw-600">Điện thoại *</label><input id="m-phone" class="form-control" value="${esc(c.phone)}"></div>
+        <div class="col-md-6"><label class="form-label small fw-600">Email</label><input id="m-email" class="form-control" value="${esc(c.email)}"></div>
+        <div class="col-md-6"><label class="form-label small fw-600">Phụ trách</label><select id="m-assign" class="form-select">${salesOpt}</select></div>
+        <div class="col-md-6"><label class="form-label small fw-600">Nguồn</label><select id="m-source" class="form-select">${opt(state.options.SOURCES,c.source)}</select></div>
+        <div class="col-md-6"><label class="form-label small fw-600">Trạng thái</label><select id="m-status" class="form-select">${opt(state.options.STATUSES,c.status)}</select></div>
+        <div class="col-12"><label class="form-label small fw-600">Tags (phân cách dấu phẩy)</label><input id="m-tags" class="form-control" value="${esc(c.tags)}" placeholder="VIP, quan tâm, gọi lại"></div>
+      </div>`,
+      async ()=>{
+        const payload={name:$('m-name').value.trim(),phone:$('m-phone').value.trim(),email:$('m-email').value.trim(),
+          source:$('m-source').value,status:$('m-status').value,tags:$('m-tags').value.trim(),assignedTo:$('m-assign').value};
+        if(!payload.name||!payload.phone){ toast('Tên và SĐT bắt buộc','err'); return false; }
+        if(id) await call('apiUpdateCustomer',state.token,id,payload);
+        else   await call('apiCreateCustomer',state.token,payload);
+        toast('Đã lưu khách hàng','ok'); loadCustomers(); return true;
+      });
+  }
+
+  /* ---------- CUSTOMER DETAIL (timeline) ---------- */
+  async function viewCustomer(id){
+    overlay(true);
+    try{
+      const d = await call('apiGetCustomer', state.token, id);
+      const c=d.customer;
+      const care = d.care.map(r=>`
+        <div class="tl-item"><div class="tl-meta"><i class="fa-regular fa-clock me-1"></i>${new Date(r.date).toLocaleString('vi-VN')} · ${esc(r.handler)}</div>
+          <div class="tl-body"><div>${esc(r.content)}</div>
+            ${r.result?`<div class="small mt-1"><b>Kết quả:</b> ${esc(r.result)}</div>`:''}
+            ${r.note?`<div class="small text-muted mt-1">${esc(r.note)}</div>`:''}</div></div>`).join('')
+        || '<div class="text-muted small">Chưa có lịch sử chăm sóc</div>';
+      const deals = d.deals.map(dl=>`<div class="d-flex justify-content-between border-bottom py-2">
+        <div>${esc(dl.title)} <span class="badge-soft bg-active ms-1">${dl.stage}</span></div>
+        <div class="fw-700 text-primary">${fmtMoney(dl.value)}</div></div>`).join('')||'<div class="text-muted small">Chưa có deal</div>';
+      modalLarge(`<i class="fa-solid fa-user me-2"></i>${esc(c.name)}`, `
+        <div class="row g-3">
+          <div class="col-md-4">
+            <div class="mb-2"><b>SĐT:</b> ${esc(c.phone)}</div>
+            <div class="mb-2"><b>Email:</b> ${esc(c.email||'—')}</div>
+            <div class="mb-2"><b>Nguồn:</b> ${c.source}</div>
+            <div class="mb-2"><b>Trạng thái:</b> ${statusBadge(c.status)}</div>
+            <div class="mb-2"><b>Phụ trách:</b> ${esc(c.assignedTo)}</div>
+            <div class="mb-3">${(c.tags||'').split(',').filter(Boolean).map(t=>`<span class="tag-pill">${esc(t.trim())}</span>`).join('')}</div>
+            <hr><h6 class="fw-display">Deals</h6>${deals}
+          </div>
+          <div class="col-md-8">
+            <div class="d-flex gap-2 mb-3">
+              <input id="care-input" class="form-control" placeholder="Ghi nội dung chăm sóc / cuộc gọi…">
+              <button class="btn btn-primary" onclick="App.addCare('${id}')"><i class="fa-solid fa-paper-plane"></i></button>
+            </div>
+            <div class="timeline" id="careTimeline">${care}</div>
+          </div>
+        </div>
+        <div id="extraPanels"></div>`);
+      // Phase 2/3 panels
+      renderCustomerExtras(id);
+    }catch(e){ toast(e,'err'); } finally{ overlay(false); }
+  }
+  async function renderCustomerExtras(id){
+    const host=document.getElementById('extraPanels'); if(!host) return;
+    host.innerHTML = C.aiPanel(id) + '<div id="followHost"></div><div id="filesHost"></div>';
+    // AI provider badge
+    try{ const st=await call('apiAIStatus',state.token);
+      const b=document.getElementById('aiProvBadge');
+      if(b) b.textContent = st.configured ? st.provider : (st.provider+' · chưa cấu hình key'); }catch(e){}
+    // Follow-ups
+    try{ const fus=await call('apiListFollowUps',state.token,id);
+      document.getElementById('followHost').innerHTML=C.followPanel(id,fus); }catch(e){}
+    // Files
+    try{ const files=await call('apiListFiles',state.token,id);
+      document.getElementById('filesHost').innerHTML=C.filesPanel(id,files); }catch(e){}
+  }
+  async function addCare(id){
+    const v=$('care-input').value.trim(); if(!v){ return; }
+    try{ await call('apiAddCare',state.token,{customerId:id,content:v}); toast('Đã thêm','ok'); viewCustomer(id); }
+    catch(e){ toast(e,'err'); }
+  }
+
+  /* ---------- IMPORT / EXPORT ---------- */
+  function importCustomers(){
+    const inp=document.createElement('input'); inp.type='file'; inp.accept='.xlsx,.xls,.csv';
+    inp.onchange=e=>{
+      const file=e.target.files[0]; if(!file) return;
+      const reader=new FileReader();
+      reader.onload=async ev=>{
+        try{
+          const wb=XLSX.read(ev.target.result,{type:'binary'});
+          const rows=XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]]);
+          const mapped=rows.map(r=>({name:r.name||r['Tên']||r['Ten']||r['Tên khách hàng'],
+            phone:String(r.phone||r['Điện thoại']||r['SĐT']||r['Phone']||''),
+            email:r.email||r['Email']||'', source:r.source||r['Nguồn']||'', status:r.status||r['Trạng thái']||''}));
+          overlay(true);
+          const res=await call('apiImportCustomers',state.token,mapped);
+          toast(`Import: +${res.added}, bỏ qua ${res.skipped}`,'ok'); loadCustomers();
+        }catch(err){ toast('Lỗi đọc file: '+err.message,'err'); } finally{ overlay(false); }
+      };
+      reader.readAsBinaryString(file);
+    };
+    inp.click();
+  }
+  async function exportCustomers(){
+    overlay(true);
+    try{
+      const rows=await call('apiExportCustomers',state.token);
+      const ws=XLSX.utils.json_to_sheet(rows);
+      const wb=XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb,ws,'Customers');
+      XLSX.writeFile(wb,'NEXUS_Customers_'+Date.now()+'.xlsx');
+    }catch(e){ toast(e,'err'); } finally{ overlay(false); }
+  }
+
+  /* ---------- PIPELINE ---------- */
+  async function viewPipeline(){
+    overlay(true);
+    try{
+      const board=await call('apiListDeals',state.token);
+      $('viewRoot').innerHTML=C.pipeline(board,state.options.STAGES);
+      document.querySelectorAll('.kb-body').forEach(el=>{
+        new Sortable(el,{group:'deals',animation:150,ghostClass:'bg-light',
+          onEnd:async evt=>{
+            const id=evt.item.dataset.id, stage=evt.to.dataset.stage;
+            if(evt.from.dataset.stage===stage) return;
+            try{ await call('apiMoveDeal',state.token,id,stage); toast('Đã chuyển sang '+stage,'ok'); refreshKbCounts(); }
+            catch(e){ toast(e,'err'); viewPipeline(); }
+          }});
+      });
+    }catch(e){ toast(e,'err'); } finally{ overlay(false); }
+  }
+  function refreshKbCounts(){
+    document.querySelectorAll('.kb-col').forEach(col=>{
+      const n=col.querySelector('.kb-body').querySelectorAll('.kb-card').length;
+      col.querySelector('.cnt').textContent=n;
+    });
+  }
+  async function openDealModal(id){
+    let custList=[];
+    try{ const r=await call('apiListCustomers',state.token,{pageSize:200}); custList=r.rows; }catch(e){}
+    let d={customerId:custList[0]?.id||'',title:'',value:0,stage:'Lead',expectedClose:''};
+    if(id){ /* simplified: edit core fields via prompt fallback */ }
+    const custOpt=custList.map(c=>`<option value="${c.id}">${esc(c.name)}</option>`).join('');
+    const stageOpt=state.options.STAGES.map(s=>`<option>${s}</option>`).join('');
+    modal(id?'Sửa deal':'Thêm deal', `
+      <div class="row g-3">
+        <div class="col-12"><label class="form-label small fw-600">Khách hàng *</label><select id="d-cus" class="form-select">${custOpt}</select></div>
+        <div class="col-12"><label class="form-label small fw-600">Tiêu đề deal *</label><input id="d-title" class="form-control"></div>
+        <div class="col-md-6"><label class="form-label small fw-600">Giá trị (đ)</label><input id="d-value" type="number" class="form-control" value="0"></div>
+        <div class="col-md-6"><label class="form-label small fw-600">Giai đoạn</label><select id="d-stage" class="form-select">${stageOpt}</select></div>
+        <div class="col-12"><label class="form-label small fw-600">Dự kiến chốt</label><input id="d-close" type="date" class="form-control"></div>
+      </div>`,
+      async ()=>{
+        const payload={customerId:$('d-cus').value,title:$('d-title').value.trim(),
+          value:$('d-value').value,stage:$('d-stage').value,expectedClose:$('d-close').value};
+        if(!payload.title){ toast('Nhập tiêu đề deal','err'); return false; }
+        await call('apiCreateDeal',state.token,payload);
+        toast('Đã tạo deal','ok'); viewPipeline(); return true;
+      });
+  }
+
+  /* ---------- REPORT ---------- */
+  async function viewReport(){
+    overlay(true);
+    try{
+      const r=await call('apiReport',state.token,{});
+      $('viewRoot').innerHTML=C.report(r);
+      if(state.charts.rp){try{state.charts.rp.destroy()}catch(e){}}
+      state.charts.rp=new Chart($('rpMonth'),{type:'bar',
+        data:{labels:r.revByMonth.map(x=>x.month),datasets:[{label:'Doanh thu',data:r.revByMonth.map(x=>x.revenue),
+          backgroundColor:'#2563EB',borderRadius:6}]},
+        options:{plugins:{legend:{display:false}},scales:{y:{ticks:{callback:v=>fmtMoney(v)}}},maintainAspectRatio:false}});
+    }catch(e){ toast(e,'err'); } finally{ overlay(false); }
+  }
+
+  /* ---------- QUOTATION (Quoteflow OS) ---------- */
+  function viewQuotation(){
+    const url = 'http://' + window.location.hostname + ':8502/?token=' + encodeURIComponent(state.token);
+    $('viewRoot').innerHTML = `
+      <div class="card-n h-100" style="padding: 0; min-height: calc(100vh - 120px); border: none; display: flex; flex-direction: column;">
+        <div class="card-head d-flex justify-content-between align-items-center" style="padding: 12px 20px; border-bottom: 1px solid var(--border-color);">
+          <div class="d-flex align-items-center">
+            <i class="fa-solid fa-file-invoice-dollar text-primary me-2"></i>
+            <h5 class="mb-0">Quản lý Báo giá (Quoteflow OS)</h5>
+          </div>
+          <a href="${url}" target="_blank" class="btn btn-sm btn-outline-primary">
+            <i class="fa-solid fa-up-right-from-square me-1"></i> Mở cửa sổ mới
+          </a>
+        </div>
+        <div style="flex: 1; position: relative; min-height: calc(100vh - 180px);">
+          <iframe src="${url}" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; border-radius: 0 0 16px 16px; background: white;"></iframe>
+        </div>
+      </div>`;
+  }
+
+  /* ---------- ADMIN ---------- */
+  function viewAdmin(){ $('viewRoot').innerHTML=C.admin(); adminTab('users'); }
+  async function adminTab(tab,btn){
+    if(btn){ document.querySelectorAll('#adminTabs .nav-link').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); }
+    overlay(true);
+    try{
+      if(tab==='users'){ const u=await call('apiListUsers',state.token); $('adminPane').innerHTML=C.adminUsers(u); }
+      else if(tab==='companies'){ const c=await call('apiListCompanies'); $('adminPane').innerHTML=C.adminCompanies(c); }
+      else if(tab==='templates'){ const t=await call('apiListTemplates',state.token); $('adminPane').innerHTML=C.adminTemplates(t); }
+      else if(tab==='audit'){ const a=await call('apiAuditLog',state.token,200); $('adminPane').innerHTML=C.adminAudit(a); }
+      else if(tab==='backup'){ const b=await call('apiListBackups',state.token); $('adminPane').innerHTML=C.adminBackup(b); }
+    }catch(e){ toast(e,'err'); } finally{ overlay(false); }
+  }
+  async function openUserModal(id){
+    let u={name:'',email:'',role:'Sale',status:'active'};
+    if(id){ const list=await call('apiListUsers',state.token); u=list.find(x=>x.id===id)||u; }
+    const roleOpt=['Admin','Manager','Sale'].map(r=>`<option ${r===u.role?'selected':''}>${r}</option>`).join('');
+    modal(id?'Sửa user':'Thêm user', `
+      <div class="row g-3">
+        <div class="col-md-6"><label class="form-label small fw-600">Tên *</label><input id="u-name" class="form-control" value="${esc(u.name)}"></div>
+        <div class="col-md-6"><label class="form-label small fw-600">Email *</label><input id="u-email" class="form-control" value="${esc(u.email)}" ${id?'disabled':''}></div>
+        <div class="col-md-6"><label class="form-label small fw-600">Vai trò</label><select id="u-role" class="form-select">${roleOpt}</select></div>
+        <div class="col-md-6"><label class="form-label small fw-600">Trạng thái</label><select id="u-status" class="form-select">
+          <option value="active" ${u.status==='active'?'selected':''}>active</option>
+          <option value="locked" ${u.status!=='active'?'selected':''}>khoá</option></select></div>
+        <div class="col-12"><label class="form-label small fw-600">Mật khẩu ${id?'(để trống nếu không đổi)':'*'}</label><input id="u-pass" type="password" class="form-control"></div>
+      </div>`,
+      async ()=>{
+        const p={name:$('u-name').value.trim(),email:$('u-email').value.trim(),role:$('u-role').value,
+          status:$('u-status').value,password:$('u-pass').value};
+        if(!p.name){ toast('Nhập tên','err'); return false; }
+        if(id){ const patch={name:p.name,role:p.role,status:p.status}; if(p.password)patch.password=p.password;
+          await call('apiUpdateUser',state.token,id,patch); }
+        else { if(!p.email||!p.password){ toast('Email & mật khẩu bắt buộc','err'); return false; }
+          await call('apiCreateUser',state.token,p); }
+        toast('Đã lưu user','ok'); adminTab('users'); return true;
+      });
+  }
+  function deleteUser(id){
+    Swal.fire({title:'Xoá user?',icon:'warning',showCancelButton:true,confirmButtonText:'Xoá',
+      cancelButtonText:'Huỷ',confirmButtonColor:'#DC2626'}).then(async r=>{
+      if(r.isConfirmed){ try{ await call('apiDeleteUser',state.token,id); toast('Đã xoá','ok'); adminTab('users'); }catch(e){ toast(e,'err'); } }
+    });
+  }
+  async function openCompanyModal(){
+    modal('Khai báo công ty mới', `
+      <div class="row g-3">
+        <div class="col-md-6"><label class="form-label small fw-600">Mã công ty * (viết liền không dấu, chữ thường)</label>
+          <input id="c-code" class="form-control" placeholder="ví dụ: congtya"></div>
+        <div class="col-md-6"><label class="form-label small fw-600">Tên công ty *</label>
+          <input id="c-name" class="form-control" placeholder="Tên đầy đủ công ty"></div>
+        <div class="col-md-6"><label class="form-label small fw-600">Mã số thuế</label>
+          <input id="c-tax" class="form-control" placeholder="MST"></div>
+        <div class="col-md-6"><label class="form-label small fw-600">Điện thoại & Email</label>
+          <input id="c-phone" class="form-control" placeholder="SĐT | Email"></div>
+        <div class="col-12"><label class="form-label small fw-600">Địa chỉ</label>
+          <input id="c-address" class="form-control" placeholder="Địa chỉ trụ sở"></div>
+        <div class="col-12 small text-muted"><i class="fa-solid fa-circle-info me-1"></i>Hệ thống sẽ tự động tạo cơ sở dữ liệu mới tinh cho công ty này khi tạo thành công.</div>
+      </div>`,
+      async ()=>{
+        const payload = {
+          code: $('c-code').value.trim().toLowerCase(),
+          name: $('c-name').value.trim(),
+          tax_code: $('c-tax').value.trim(),
+          phone_email: $('c-phone').value.trim(),
+          address: $('c-address').value.trim()
+        };
+        if(!payload.code || !payload.name){ toast('Mã và Tên công ty bắt buộc', 'err'); return false; }
+        try {
+          await call('apiCreateCompany', state.token, payload);
+          toast('Đã khởi tạo công ty và cơ sở dữ liệu mới!', 'ok');
+          adminTab('companies');
+          return true;
+        } catch(e) { toast(e, 'err'); return false; }
+      });
+  }
+  function doBackup(){
+    Swal.fire({title:'Sao lưu toàn bộ dữ liệu?',text:'Tạo bản sao lưu cục bộ.',icon:'question',
+      showCancelButton:true,confirmButtonText:'Sao lưu',cancelButtonText:'Huỷ',confirmButtonColor:'#2563EB'}).then(async r=>{
+      if(r.isConfirmed){ overlay(true);
+        try{ const res=await call('apiBackup',state.token); toast('Đã sao lưu: '+res.name,'ok'); adminTab('backup'); }
+        catch(e){ toast(e,'err'); } finally{ overlay(false); } }
+    });
+  }
+
+  /* ---------- MODAL ---------- */
+  let _modalEl=null, _onSave=null;
+  function modal(title, bodyHtml, onSave){
+    closeModal();
+    _onSave=onSave;
+    const el=document.createElement('div');
+    el.className='modal fade'; el.tabIndex=-1;
+    el.innerHTML=`<div class="modal-dialog modal-dialog-centered"><div class="modal-content" style="border-radius:16px;border:none">
+      <div class="modal-header"><h5 class="modal-title fw-display">${title}</h5>
+        <button class="btn-close" data-bs-dismiss="modal"></button></div>
+      <div class="modal-body">${bodyHtml}</div>
+      <div class="modal-footer"><button class="btn btn-light" data-bs-dismiss="modal">Huỷ</button>
+        <button class="btn btn-primary" id="modalSave"><i class="fa-solid fa-floppy-disk me-1"></i> Lưu</button></div>
+    </div></div>`;
+    document.body.appendChild(el); _modalEl=el;
+    const bs=new bootstrap.Modal(el); bs.show();
+    el.querySelector('#modalSave').onclick=async()=>{
+      try{ const ok=await _onSave(); if(ok!==false) bs.hide(); }catch(e){ toast(e,'err'); }
+    };
+    el.addEventListener('hidden.bs.modal',()=>el.remove());
+  }
+  function modalLarge(title, bodyHtml){
+    closeModal();
+    const el=document.createElement('div'); el.className='modal fade'; el.tabIndex=-1;
+    el.innerHTML=`<div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content" style="border-radius:16px;border:none">
+      <div class="modal-header"><h5 class="modal-title fw-display">${title}</h5>
+        <button class="btn-close" data-bs-dismiss="modal"></button></div>
+      <div class="modal-body">${bodyHtml}</div></div></div>`;
+    document.body.appendChild(el); _modalEl=el;
+    const bs=new bootstrap.Modal(el); bs.show();
+    el.addEventListener('hidden.bs.modal',()=>el.remove());
+  }
+  function closeModal(){ if(_modalEl){ try{_modalEl.remove()}catch(e){} _modalEl=null; } }
+
+  /* ---------- SIDEBAR / DARK ---------- */
+  function toggleSidebar(on){ const sb=$('sidebar'),bd=$('sbBackdrop'); if(!sb)return;
+    sb.classList.toggle('open',on); if(bd)bd.classList.toggle('show',on); }
+  function applyDark(on){ document.body.classList.toggle('dark',on); }
+  function toggleDark(){ const on=!document.body.classList.contains('dark');
+    applyDark(on); localStorage.setItem('nx_dark',on?'1':'0'); }
+
+  /* ========== PHASE 2/3 HANDLERS ========== */
+
+  /* ---- AI ---- */
+  async function aiRun(feature, id){
+    const box=document.getElementById('aiResult'); box.style.display='block';
+    box.innerHTML='<span class="spinner-border spinner-border-sm me-2"></span>Đang phân tích…';
+    try{
+      let out;
+      if(feature==='suggest'){ out=await call('apiAISuggest',state.token,id); box.textContent=out; }
+      else if(feature==='summary'){ out=await call('apiAISummary',state.token,id); box.textContent=out; }
+      else if(feature==='score'){ const r=await call('apiAIScore',state.token,id);
+        box.innerHTML=`<b>Điểm tiềm năng: <span class="text-primary" style="font-size:20px">${r.score}/100</span></b><br>${esc(r.reason)}`; }
+      else if(feature==='tag'){ const r=await call('apiAIAutoTag',state.token,id);
+        box.innerHTML=`Đã gắn tag: ${r.tags.split(',').map(t=>`<span class="tag-pill">${esc(t.trim())}</span>`).join('')}`;
+        toast('Đã cập nhật tag','ok'); }
+    }catch(e){ box.innerHTML=`<span class="text-danger">${esc(e)}</span>`; }
+  }
+
+  /* ---- Follow-up ---- */
+  function openFollowModal(id){
+    const today=new Date().toISOString().slice(0,10);
+    modal('Đặt lịch follow-up', `
+      <div class="row g-3">
+        <div class="col-md-6"><label class="form-label small fw-600">Ngày hẹn *</label><input id="fu-date" type="date" class="form-control" value="${today}"></div>
+        <div class="col-md-6"><label class="form-label small fw-600">Giờ hẹn</label><input id="fu-time" type="time" class="form-control" value="09:00"></div>
+        <div class="col-12"><label class="form-label small fw-600">Nội dung *</label><textarea id="fu-content" class="form-control" rows="2" placeholder="Gọi tư vấn gói dịch vụ…"></textarea></div>
+        <div class="col-12 small text-muted"><i class="fa-solid fa-circle-info me-1"></i>Hệ thống tự tạo sự kiện và gửi email nhắc đúng ngày.</div>
+      </div>`,
+      async ()=>{
+        const p={customerId:id,dueDate:$('fu-date').value,dueTime:$('fu-time').value,content:$('fu-content').value.trim()};
+        if(!p.dueDate||!p.content){ toast('Nhập ngày và nội dung','err'); return false; }
+        const r=await call('apiCreateFollowUp',state.token,p);
+        toast(r.calendar?'Đã đặt lịch + tạo Calendar':'Đã đặt lịch','ok');
+        const fus=await call('apiListFollowUps',state.token,id);
+        document.getElementById('followHost').innerHTML=C.followPanel(id,fus); return true;
+      });
+  }
+  async function doneFollowUp(fid,cid){
+    try{ await call('apiDoneFollowUp',state.token,fid); toast('Đã hoàn thành','ok');
+      const fus=await call('apiListFollowUps',state.token,cid);
+      document.getElementById('followHost').innerHTML=C.followPanel(cid,fus); }catch(e){ toast(e,'err'); }
+  }
+  async function deleteFollowUp(fid,cid){
+    try{ await call('apiDeleteFollowUp',state.token,fid); toast('Đã xoá','ok');
+      const fus=await call('apiListFollowUps',state.token,cid);
+      document.getElementById('followHost').innerHTML=C.followPanel(cid,fus); }catch(e){ toast(e,'err'); }
+  }
+
+  /* ---- Files (Upload base64) ---- */
+  function uploadFile(id){
+    const inp=document.createElement('input'); inp.type='file';
+    inp.onchange=e=>{
+      const file=e.target.files[0]; if(!file) return;
+      if(file.size>25*1024*1024){ toast('File tối đa 25MB','err'); return; }
+      const reader=new FileReader();
+      reader.onload=async ev=>{
+        const base64=ev.target.result.split(',')[1];
+        overlay(true);
+        try{ await call('apiUploadFile',state.token,{customerId:id,fileName:file.name,mimeType:file.type,base64:base64});
+          toast('Đã tải lên','ok');
+          const files=await call('apiListFiles',state.token,id);
+          document.getElementById('filesHost').innerHTML=C.filesPanel(id,files);
+        }catch(err){ toast(err,'err'); } finally{ overlay(false); }
+      };
+      reader.readAsDataURL(file);
+    };
+    inp.click();
+  }
+
+  /* ---- Email templates ---- */
+  async function openTemplateModal(id){
+    let t={name:'',trigger:'manual',subject:'',body:'',active:true};
+    if(id){ const list=await call('apiListTemplates',state.token); const f=list.find(x=>x.id===id);
+      if(f){ t={name:f.name,trigger:f.trigger,subject:f.subject,body:f.body,active:f.active==='yes'}; } }
+    const trigOpts=['manual','status:Lead','status:Tiềm năng','status:Đang tư vấn','status:Đàm phán','status:Đã chốt','status:Thất bại']
+      .map(x=>`<option ${x===t.trigger?'selected':''}>${x}</option>`).join('');
+    modal(id?'Sửa mẫu email':'Thêm mẫu email', `
+      <div class="row g-3">
+        <div class="col-md-7"><label class="form-label small fw-600">Tên mẫu *</label><input id="t-name" class="form-control" value="${esc(t.name)}"></div>
+        <div class="col-md-5"><label class="form-label small fw-600">Kích hoạt khi</label><select id="t-trigger" class="form-select">${trigOpts}</select></div>
+        <div class="col-12"><label class="form-label small fw-600">Chủ đề *</label><input id="t-subject" class="form-control" value="${esc(t.subject)}"></div>
+        <div class="col-12"><label class="form-label small fw-600">Nội dung * <span class="text-muted">(biến: {{name}} {{phone}} {{email}} {{status}})</span></label>
+          <textarea id="t-body" class="form-control" rows="6">${esc(t.body)}</textarea></div>
+        <div class="col-12"><div class="form-check"><input id="t-active" type="checkbox" class="form-check-input" ${t.active?'checked':''}>
+          <label class="form-check-label">Bật mẫu này</label></div></div>
+      </div>`,
+      async ()=>{
+        const p={name:$('t-name').value.trim(),trigger:$('t-trigger').value,subject:$('t-subject').value.trim(),
+          body:$('t-body').value,active:$('t-active').checked};
+        if(!p.name||!p.subject||!p.body){ toast('Điền đủ tên, chủ đề, nội dung','err'); return false; }
+        if(id) await call('apiUpdateTemplate',state.token,id,p);
+        else   await call('apiCreateTemplate',state.token,p);
+        toast('Đã lưu mẫu email','ok'); adminTab('templates'); return true;
+      });
+  }
+  function deleteTemplate(id){
+    Swal.fire({title:'Xoá mẫu email?',icon:'warning',showCancelButton:true,confirmButtonText:'Xoá',
+      cancelButtonText:'Huỷ',confirmButtonColor:'#DC2626'}).then(async r=>{
+      if(r.isConfirmed){ try{ await call('apiDeleteTemplate',state.token,id); toast('Đã xoá','ok'); adminTab('templates'); }catch(e){ toast(e,'err'); } }
+    });
+  }
+
+  /* ---- Gmail scan (admin) ---- */
+  async function scanGmail(){
+    overlay(true);
+    try{ const r=await call('apiScanGmail',state.token); toast('Quét Gmail: +'+r.created+' khách','ok'); }
+    catch(e){ toast(e,'err'); } finally{ overlay(false); }
+  }
+
+  /* ---------- expose ---------- */
+  return { boot,login,googleLogin,logout,go,refresh,
+    loadCustomers,debouncedLoadCustomers,openCustomerModal,viewCustomer,addCare,importCustomers,exportCustomers,
+    openDealModal,adminTab,openUserModal,deleteUser,doBackup,
+    toggleSidebar,toggleDark,esc,fmtMoney,statusBadge,
+    aiRun,openFollowModal,doneFollowUp,deleteFollowUp,uploadFile,
+    openTemplateModal,deleteTemplate,scanGmail,
+    switchCompany,openCompanyModal };
+})();
+
+document.addEventListener('DOMContentLoaded', App.boot);
+</script>

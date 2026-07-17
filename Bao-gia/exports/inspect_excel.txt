@@ -1,0 +1,268 @@
+=== FILE: OMRI 2026. GIÁ FRAM v1.xlsx ===
+  Sheet: DÒNG PHÂN NỞ-BÓN GỐC
+    Row 01:  | CÔNG TY CỔ PHẦN NÔNG NGHIỆP CÔNG NGHỆ CAO OMRI GROUP  |  |  |  |  |  |  |  |  |  |  |  | 
+    Row 02:  |                 Trụ sở: 2E/1, Đường 970 -KP4, Phường Long Trường -  TP.HCM |  |  |  |  |  |  |  |  |  |  |  | 
+    Row 03:  |                     Nhà Máy : Lô B220A,KCN Thái Hòa,Xã Đức Lập ,Tỉnh Tây Ninh, Việt Nam |  |  |  |  |  |  |  |  |  |  |  | 
+    Row 04:  |    Wedsite: https://omrigroup.vn/- hotline: 0916.616.855 |  |  |  |  |  |  |  |  |  |  |  | 
+    Row 06:  | BẢNG BÁO GIÁ |  |  |  |  |  |  |  |  |  |  |  | 
+    Row 07:  | Kính gửi: QUÝ KHÁCH HÀNG FRAM  |  |  |  |  |  |  |  |  |  |  |  | 
+    Row 08: Công ty Cổ phần Nông Nghiệp Công Nghệ Cao OMRI GROUP xin chân thành cảm ơn quý khách đã quan tâm, tin dùng các sản phẩm và dịch vụ của Công Ty chúng tôi trong thời gian qua. |  |  |  |  |  |  |  |  |  |  |  |  | 
+    Row 09: Do tình hình thị trường nhiều biến động, để đảm bảo cho các sản phẩm và dịch vụ tốt nhất, nay Công Ty chúng tôi xin gửi bảng báo giá mới áp dụng từ ngày 01/04/2026 các sản phẩm cụ thể như sau: |  |  |  |  |  |  |  |  |  |  |  |  | 
+    Row 11: STT | TÊN HÀNG HÓA | QUY CÁCH | ĐVT | GIÁ  TẠI KHO FARM |  |  |  |  |  |  |  |  | 
+    Row 13: 1 | PHÂN BÓN HỮU CƠ OMRI 70 OM CAO CẤP
+( Sản phẩm có NPK , humic,amino,fulvic + TE ) | Bao 25 kg | Tấn | 9200000 |  |  |  |  |  |  |  |  | 
+    Row 14: 2 | PHÂN BÓN HỮU CƠ OMRI 70 OM 
+( sản phẩm có NPK,Humic,Amino,Fulvic và các dinh dưỡng tiêu chuẩn ) | Bao 25 kg | Tấn | 8700000 |  |  |  |  |  |  |  |  | 
+    Row 15: 3 | PHÂN BÓN HỮU CƠ OMRI 60 OM 
+( Sản phẩm có NPK,Humic,Amino,Fulvic ...) | Bao 25 kg | Tấn | 7300000 |  |  |  |  |  |  |  |  | 
+    Row 16: 4 | PHÂN BÓN HỮU CƠ HC GARDEN ORGANIC( BAO 25 Kg) 
+( Sản phẩm chứa NPK 12-0-1, 30 OM, amino ,fulvic ...) | Bao 25 kg | Tấn | 13500000 |  |  |  |  |  |  |  |  | 
+    Row 17: 5 | PHÂN BÓN HỮU CƠ HC GARDEN ORGANIC( BAO 10 Kg) 
+( Sản phẩm chứa NPK 12-0-1, 30 OM, amino ,fulvic ...) | Túi 10 kg | Tấn | 15000000 |  |  |  |  |  |  |  |  | 
+    Row 18: 6 | TRUNG VI LƯỢNG - OMRI - BAO BẠC 20 Kg
+( Sản phẩm có 20 OM + TE )
+ - giúp bộ rễ khỏe, giải độc đất,cây ,cân bằng PH,điều tiết lượng nước. Giúp  cứng cây xanh lá chống chịu thời tiết bất lợi,tăng tuổi thọ cho cây - | Bao 20 kg | Tấn | 20500000 |  |  |  |  |  |  |  |  | 
+    Row 19: 7 | HUCMIC OMRI CAO CẤP ( DẠNG BỘT ,VẢY - TÚI 1 KG ) | Túi 1 kg | kg | 90000 |  |  |  |  |  |  |  |  | 
+    Row 20: 8 | HUMIC CACBON ( DẠNG BỘT- TÚI 1KG ) | Túi 1 kg | kg | 50000 |  |  |  |  |  |  |  |  | 
+    Row 21: 9 | HUMIC CACBON( DẠNG BỘT- TÚI 5 KG) ) | Túi 5 kg | kg | 240000 |  |  |  |  |  |  |  |  | 
+    Row 22: 10 |  TRICHODEMA ( DẠNG BỘT - TÚI 1 KG ) | Túi 1 kg | kg | 40000 |  |  |  |  |  |  |  |  | 
+    Row 23: 11 |  TRICHODEMA ( DẠNG LỎNG - CAN 5 LÍT ) | Can 5 lít  | Lít | 220000 |  |  |  |  |  |  |  |  | 
+    Row 24: Công ty Omri Group chân thành biết ơn sự hợp tác của Quý khách hàng. |  |  |  |  |  |  |  |  |  |  |  |  | 
+    Row 25: Trân trọng báo giá! |  |  |  |  |  |  |  |  |  |  |  |  | 
+    Row 26:  |  | Ngày 01 Tháng 04 Năm 2026 |  |  |  |  |  |  |  |  |  |  | 
+    Row 27:  |  | ( GIÁM ĐỐC) |  |  |  |  |  |  |  |  |  |  | 
+
+  Sheet: DÒNG PHÂN NƯỚC
+    Row 01: CỔNG TY CỔ PHẦN NÔNG NGHIỆP CÔNG NGHỆ CAO OMRI GROUP  |  |  |  |  |  |  |  |  |  |  |  |  | 
+    Row 02:  |  |                 Trụ sở: 2E/1 Đường 970 - KP 4 - Phường Long Trường - TP.HCM |  |  |  |  |  |  |  |  |  |  | 
+    Row 03:  |  |                     Nhà Máy : Lô B220A,KCN Thái Hòa,Xã Đức Lập ,Tỉnh Long An |  |  |  |  |  |  |  |  |  |  | 
+    Row 04:  |  |    Wedsite: https://omrigroup.vn/- hotline: 0916.616.855 - 0918.383.222 |  |  |  |  |  |  |  |  |  |  | 
+    Row 06:  |  | BẢNG BÁO GIÁ |  |  |  |  |  |  |  |  |  |  | 
+    Row 07:  | Kính gửi: QUÝ KHÁCH HÀNG FRAM  |  |  |  |  |  |  |  |  |  |  |  | 
+    Row 08: Công ty Cổ phần Nông Nghiệp Công Nghệ Cao OMRI GROUP xin chân thành cảm ơn quý khách đã quan tâm, tin dùng các sản phẩm và dịch vụ của Công Ty chúng tôi trong thời gian qua. |  |  |  |  |  |  |  |  |  |  |  |  | 
+    Row 09: Do tình hình thị trường nhiều biến động, để đảm bảo cho các sản phẩm và dịch vụ tốt nhất, nay Công Ty chúng tôi xin gửi bảng báo giá mới áp dụng từ ngày 01/04/2026 các sản phẩm cụ thể như sau: |  |  |  |  |  |  |  |  |  |  |  |  | 
+    Row 11: STT | TÊN HÀNG HÓA | CÂY
+TRỒNG | THỂ 
+TÍCH | LOẠI | QUY
+CÁCH | ĐƠN GIÁ | GIÁ THÙNG | GHI CHÚ |  |  |  |  | 
+    Row 12: 1 | Kali Bo Omri | Lúa | 1L | Chai | 20 | 90000 | 1800000 |  |  |  |  |  | 
+    Row 13: 2 | Ra rễ nở bụi | Lúa | 1L | Chai | 20 | 93000 | 1860000 |  |  |  |  |  | 
+    Row 14: 3 | Rước đồng trổ thoát | Lúa | 1L | Chai | 20 | 97000 | 1940000 |  |  |  |  |  | 
+    Row 15: 4 | Canxi Bo | TH | 500ml | Chai | 40 | 65000 | 2600000 |  |  |  |  |  | 
+    Row 16: 5 | Canxi Bo | TH | 1L | Chai | 20 | 120000 | 2400000 |  |  |  |  |  | 
+    Row 17: 6 | Đạm cá | TH | 1L | Chai | 20 | 75000 | 1500000 | Giá Net |  |  |  |  | 
+    Row 18: 7 | Đạm cá  | TH | 5L | Can | 4 | 350000 | 1400000 | Giá Net |  |  |  |  | 
+    Row 19: 8 | Amino 40 | TH | 1L | Chai | 20 | 117000 | 2340000 |  |  |  |  |  | 
+    Row 20: 9 | Siêu vọt đọt | TH | 500ml | Chai | 40 | 60000 | 2400000 |  |  |  |  |  | 
+    Row 21: 10 | Roots 10 | TH | 5L | Chai | 4 | 390000 | 1560000 |  |  |  |  |  | 
+    Row 22: 11 | Roots Omri 20kg | TH | 20kg | Xô | 1 | 1190000 | 1190000 |  |  |  |  |  | 
+    Row 23: 12 | Lớn trái Omri  | TH | 20kg | Xô | 1 | 1365000 | 1365000 |  |  |  |  |  | 
+    Row 24: 13 | Lân đỏ | TH | 5L | Can | 4 | 442000 | 1768000 |  |  |  |  |  | 
+    Row 25: 14 | Siêu Bo | TH | 500ml | Chai | 40 | 75000 | 3000000 |  |  |  |  |  | 
+    Row 26: 15 | Mg - Zn | TH | 1L | Chai | 20 | 93000 | 1860000 |  |  |  |  |  | 
+    Row 29:  |  |  |  |  |  | Ngày 01 Tháng 04 Năm 2026 |  |  |  |  |  |  | 
+    Row 30:  |  |  |  |  |  | ( GIÁM ĐỐC) |  |  |  |  |  |  | 
+
+  Sheet: CHÍNH SÁCH CHO FRAM
+    Row 01: CỔNG TY CỔ PHẦN NÔNG NGHIỆP CÔNG NGHỆ CAO OMRI GROUP  |  |  |  |  |  |  |  |  |  |  |  |  | 
+    Row 02:  |                 Trụ sở: 2E/1 Đường 970 - KP 4 - Phường Long Trường - TP.HCM |  |  |  |  |  |  |  |  |  |  |  | 
+    Row 03:  |                     Nhà Máy : Lô B220A,KCN Thái Hòa,Xã Đức Lập ,Tỉnh Long An |  |  |  |  |  |  |  |  |  |  |  | 
+    Row 04:  |    Wedsite: https://omrigroup.vn/- hotline: 0916.616.855 - 0918.383.222 |  |  |  |  |  |  |  |  |  |  |  | 
+    Row 06: CHÍNH SÁCH KHÁCH HÀNG |  |  |  |  |  |  |  |  |  |  |  |  | 
+    Row 07:  | Kính gửi: QUÝ KHÁCH HÀNG FRAM  |  |  |  |  |  |  |  |  |  |  |  | 
+    Row 08: Công ty Cổ phần Nông Nghiệp Công Nghệ Cao OMRI GROUP xin chân thành cảm ơn quý khách đã quan tâm, tin dùng các sản phẩm và dịch vụ của Công Ty chúng tôi trong thời gian qua. |  |  |  |  |  |  |  |  |  |  |  |  | 
+    Row 09: Với sứ mệnh ''KẾT NỐI NÔNG NGHIỆP XANH '' Của Công Ty , Với mục tiêu NÂNG TẦM NÔNG SẢN VIỆT và gắn kết hợp tác bền vững cùng phát triển thắng lợi
+Nay Công Ty xin được gửi quý khách hàng chính sách dưới đây, để nâng cao sản phẩm và dịch vụ cũng như gắn kết tình giao thương. Một lần xin nữa cám ơn sự đồng hành của quý khách . |  |  |  |  |  |  |  |  |  |  |  |  | 
+    Row 11: I | KHÁCH HÀNG LÀ FRAM SỬ DỤNG CÁC DÒNG PHÂN BÓN VÀ DINH DƯỠNG CỦA HÃNG OMRI GROUP |  |  |  |  |  |  |  |  |  |  |  | 
+    Row 12:  | THỜI GIAN SỬ DỤNG | SỐ TIỀN | VÉ DU LỊCH
+VŨNG TÀU | PHẦN QUÀ | GHI CHÚ |  |  |  |  |  |  |  | 
+    Row 13:  | Nay - Tháng 12/2026 | 80.000.000 | 1 | 0 |  |  |  |  |  |  |  |  | 
+    Row 14:  | Nay - Tháng 12/2027 | 130.000.000 | 1 | 1 | PHẦN QUÀ TRỊ GIÁ 2.200.0000 |  |  |  |  |  |  |  | 
+    Row 15:  | Nay - Tháng 12/2028 | 180.000.000 | 2 | 1 | PHẦN QUÀ TRỊ GIÁ 2.500.000 |  |  |  |  |  |  |  | 
+    Row 16:  | Nay - Tháng 12/2029 | 220.000.000 | 2 | 2 | PHẦN QUÀ TRỊ GIÁ 2.500.000 |  |  |  |  |  |  |  | 
+    Row 17:  | Nay - Tháng 12/2030 | 300.000.000 | 4 | 1 | PHẦN QUÀ TRỊ GIÁ 9.000.000   |  |  |  |  |  |  |  | 
+    Row 18: II | CHƯƠNG TRÌNH ĐẶC BIỆT DÀNH CHO KHÁCH HÀNG FRAM CỦA OMRI
+ CHIA SẼ LẠI CHO FRAM KHÁC SAU KHI TRẢI NGHIỆM HÀI LÒNG VỀ SẢN PHẨM VÀ DỊCH VỤ |  |  |  |  |  |  |  |  |  |  |  | 
+    Row 22:  |  |  |  | Ngày 01 Tháng 04 Năm 2026 |  |  |  |  |  |  |  |  | 
+    Row 23:  |  |  |  | ( GIÁM ĐỐC) |  |  |  |  |  |  |  |  | 
+
+=== FILE: OMRI 2026. GIÁ FRAM.xlsx ===
+  Sheet: DÒNG PHÂN NỞ-BÓN GỐC
+    Row 01:  | CÔNG TY CỔ PHẦN NÔNG NGHIỆP CÔNG NGHỆ CAO OMRI GROUP  |  |  |  |  |  |  |  |  |  |  |  | 
+    Row 02:  |                 Trụ sở: 2E/1, Đường 970 -KP4, Phường Long Trường -  TP.HCM |  |  |  |  |  |  |  |  |  |  |  | 
+    Row 03:  |                     Nhà Máy : Lô B220A,KCN Thái Hòa,Xã Đức Lập ,Tỉnh Tây Ninh, Việt Nam |  |  |  |  |  |  |  |  |  |  |  | 
+    Row 04:  |    Wedsite: https://omrigroup.vn/- hotline: 0916.616.855 |  |  |  |  |  |  |  |  |  |  |  | 
+    Row 06:  | BẢNG BÁO GIÁ |  |  |  |  |  |  |  |  |  |  |  | 
+    Row 07:  | Kính gửi: QUÝ KHÁCH HÀNG FRAM  |  |  |  |  |  |  |  |  |  |  |  | 
+    Row 08: Công ty Cổ phần Nông Nghiệp Công Nghệ Cao OMRI GROUP xin chân thành cảm ơn quý khách đã quan tâm ,
+ tin dùng các sản phẩm và dịch vụ của Công Ty chúng tôi trong thời gian qua. |  |  |  |  |  |  |  |  |  |  |  |  | 
+    Row 09: Do tình hình thị trường nhiều biến động, để đảm bảo cho các sản phẩm và dịch vụ tốt nhất ,
+ nay Công Ty chúng tôi xin gửi bảng báo giá mới áp dụng từ ngày 01/04/2026 các sản phẩm cụ thể như sau: |  |  |  |  |  |  |  |  |  |  |  |  | 
+    Row 11: STT | TÊN HÀNG HÓA | QUY CÁCH | ĐVT | GIÁ  TẠI 
+KHO FARM |  |  |  |  |  |  |  |  | 
+    Row 13: 1 | PHÂN BÓN HỮU CƠ OMRI 70 OM CAO CẤP
+( Sản phẩm có NPK , humic,amino,fulvic + TE ) | Bao 25 kg | Tấn | 9200000 |  |  |  |  |  |  |  |  | 
+    Row 14: 2 | PHÂN BÓN HỮU CƠ OMRI 70 OM 
+( sản phẩm có NPK,Humic,Amino,Fulvic và các dinh dưỡng tiêu chuẩn ) | Bao 25 kg | Tấn | 8700000 |  |  |  |  |  |  |  |  | 
+    Row 15: 3 | PHÂN BÓN HỮU CƠ OMRI 60 OM 
+( Sản phẩm có NPK,Humic,Amino,Fulvic ...) | Bao 25 kg | Tấn | 7300000 |  |  |  |  |  |  |  |  | 
+    Row 16: 4 | PHÂN BÓN HỮU CƠ HC GARDEN ORGANIC( BAO 25 Kg) 
+( Sản phẩm chứa NPK 12-0-1, 30 OM, amino ,fulvic ...) | Bao 25 kg | Tấn | 13500000 |  |  |  |  |  |  |  |  | 
+    Row 17: 5 | PHÂN BÓN HỮU CƠ HC GARDEN ORGANIC( BAO 10 Kg) 
+( Sản phẩm chứa NPK 12-0-1, 30 OM, amino ,fulvic ...) | Túi 10 kg | Tấn | 15000000 |  |  |  |  |  |  |  |  | 
+    Row 18: 6 | TRUNG VI LƯỢNG - OMRI - BAO BẠC 20 Kg
+( Sản phẩm có 20 OM + TE )
+ - giúp bộ rễ khỏe, giải độc đất,cây ,cân bằng PH,điều tiết lượng nước. Giúp  cứng cây xanh lá chống chịu thời tiết bất lợi,tăng tuổi thọ cho cây | Bao 20 kg | Tấn | 20500000 |  |  |  |  |  |  |  |  | 
+    Row 19: 7 | TRUNG VI LƯỢNG - OMRI - BAO BẠC 20 Kg
+( Sản phẩm có 20 OM + TE )
+ - giúp bộ rễ khỏe, giải độc đất,cây ,cân bằng PH,điều tiết lượng nước. Giúp  cứng cây xanh lá chống chịu thời tiết bất lợi,tăng tuổi thọ cho cây  | Túi 1 kg | kg | 90000 |  |  |  |  |  |  |  |  | 
+    Row 20: 8 | HUMIC CACBON ( DẠNG BỘT- TÚI 1KG ) | Túi 1 kg | kg | 50000 |  |  |  |  |  |  |  |  | 
+    Row 21: 9 | HUMIC CACBON( DẠNG BỘT- TÚI 5 KG) ) | Túi 5 kg | kg | 240000 |  |  |  |  |  |  |  |  | 
+    Row 22: 10 |  TRICHODEMA ( DẠNG BỘT - TÚI 1 KG ) | Túi 1 kg | kg | 40000 |  |  |  |  |  |  |  |  | 
+    Row 23: 11 |  TRICHODEMA ( DẠNG LỎNG - CAN 5 LÍT ) | Can 5 lít  | Lít | 220000 |  |  |  |  |  |  |  |  | 
+    Row 24: Công ty Omri Group chân thành biết ơn sự hợp tác của Quý khách hàng. |  |  |  |  |  |  |  |  |  |  |  |  | 
+    Row 25: Trân trọng báo giá! |  |  |  |  |  |  |  |  |  |  |  |  | 
+    Row 26:  |  | Ngày 01 Tháng 04 Năm 2026 |  |  |  |  |  |  |  |  |  |  | 
+    Row 27:  |  | ( GIÁM ĐỐC) |  |  |  |  |  |  |  |  |  |  | 
+
+  Sheet: DÒNG PHÂN NƯỚC
+    Row 01: CỔNG TY CỔ PHẦN NÔNG NGHIỆP CÔNG NGHỆ CAO OMRI GROUP  |  |  |  |  |  |  |  |  |  |  |  |  | 
+    Row 02:  |  |                 Trụ sở: 2E/1 Đường 970 - KP 4 - Phường Long Trường - TP.HCM |  |  |  |  |  |  |  |  |  |  | 
+    Row 03:  |  |                     Nhà Máy : Lô B220A,KCN Thái Hòa,Xã Đức Lập ,Tỉnh Long An |  |  |  |  |  |  |  |  |  |  | 
+    Row 04:  |  |    Wedsite: https://omrigroup.vn/- hotline: 0916.616.855 - 0918.383.222 |  |  |  |  |  |  |  |  |  |  | 
+    Row 06:  |  | BẢNG BÁO GIÁ |  |  |  |  |  |  |  |  |  |  | 
+    Row 07:  | Kính gửi: QUÝ KHÁCH HÀNG FRAM  |  |  |  |  |  |  |  |  |  |  |  | 
+    Row 08: Công ty Cổ phần Nông Nghiệp Công Nghệ Cao OMRI GROUP xin chân thành cảm ơn quý khách đã quan tâm ,
+ tin dùng các sản phẩm và dịch vụ của Công Ty chúng tôi trong thời gian qua. |  |  |  |  |  |  |  |  |  |  |  |  | 
+    Row 09: Do tình hình thị trường nhiều biến động, để đảm bảo cho các sản phẩm và dịch vụ tốt nhất ,
+ nay Công Ty chúng tôi xin gửi bảng báo giá mới áp dụng từ ngày 01/04/2026 các sản phẩm cụ thể như sau: |  |  |  |  |  |  |  |  |  |  |  |  | 
+    Row 11: STT | TÊN HÀNG HÓA | CÂY
+TRỒNG | THỂ
+TÍCH | LOẠI | QUY
+ CÁCH | ĐƠN GIÁ | GIÁ THÙNG | GHI CHÚ |  |  |  |  | 
+    Row 12: 1 | Kali Bo Omri | Lúa | 1L | Chai | 20 | 90000 | 1800000 |  |  |  |  |  | 
+    Row 13: 2 | Ra rễ nở bụi | Lúa | 1L | Chai | 20 | 93000 | 1860000 |  |  |  |  |  | 
+    Row 14: 3 | Rước đồng trổ thoát | Lúa | 1L | Chai | 20 | 97000 | 1940000 |  |  |  |  |  | 
+    Row 15: 4 | Canxi Bo | TH | 500ml | Chai | 40 | 65000 | 2600000 |  |  |  |  |  | 
+    Row 16: 5 | Canxi Bo | TH | 1L | Chai | 20 | 120000 | 2400000 |  |  |  |  |  | 
+    Row 17: 6 | Đạm cá | TH | 1L | Chai | 20 | 75000 | 1500000 | Giá Net |  |  |  |  | 
+    Row 18: 7 | Đạm cá  | TH | 5L | Can | 4 | 350000 | 1400000 | Giá Net |  |  |  |  | 
+    Row 19: 8 | Amino 40 | TH | 1L | Chai | 20 | 117000 | 2340000 |  |  |  |  |  | 
+    Row 20: 9 | Siêu vọt đọt | TH | 500ml | Chai | 40 | 60000 | 2400000 |  |  |  |  |  | 
+    Row 21: 10 | Roots 10 | TH | 5L | Chai | 4 | 390000 | 1560000 |  |  |  |  |  | 
+    Row 22: 11 | Roots Omri 20kg | TH | 20kg | Xô | 1 | 1190000 | 1190000 |  |  |  |  |  | 
+    Row 23: 12 | Lớn trái Omri  | TH | 20kg | Xô | 1 | 1365000 | 1365000 |  |  |  |  |  | 
+    Row 24: 13 | Lân đỏ | TH | 5L | Can | 4 | 442000 | 1768000 |  |  |  |  |  | 
+    Row 25: 14 | Siêu Bo | TH | 500ml | Chai | 40 | 75000 | 3000000 |  |  |  |  |  | 
+    Row 26: 15 | Mg - Zn | TH | 1L | Chai | 20 | 93000 | 1860000 |  |  |  |  |  | 
+    Row 27: Công ty Omri Group chân thành biết ơn sự hợp tác của Quý khách hàng. |  |  |  |  |  |  |  |  |  |  |  |  | 
+    Row 28: Trân trọng báo giá! |  |  |  |  |  | Ngày 01 Tháng 04 Năm 2026 |  |  |  |  |  |  | 
+    Row 29:  |  |  |  |  |  | ( GIÁM ĐỐC) |  |  |  |  |  |  | 
+
+  Sheet: Sheet1
+    Row 01:  | CỔNG TY CỔ PHẦN NÔNG NGHIỆP CÔNG NGHỆ CAO OMRI GROUP  |  |  |  |  |  |  |  |  |  |  |  | 
+    Row 02:  |  |                 Trụ sở: 2E/1 Đường 970 - KP 4 - Phường Long Trường - TP.HCM |  |  |  |  |  |  |  |  |  |  | 
+    Row 03:  |  |                     Nhà Máy : Lô B220A,KCN Thái Hòa,Xã Đức Lập ,Tỉnh Long An |  |  |  |  |  |  |  |  |  |  | 
+    Row 04:  |  |    Wedsite: https://omrigroup.vn/- hotline: 0916.616.855 - 0918.383.222 |  |  |  |  |  |  |  |  |  |  | 
+    Row 06:  |  | CHÍNH SÁCH CHO FARM |  |  |  |  |  |  |  |  |  |  | 
+    Row 07:  | Kính gửi: QUÝ KHÁCH HÀNG FRAM  |  |  |  |  |  |  |  |  |  |  |  | 
+    Row 08: Công ty Cổ phần Nông Nghiệp Công Nghệ Cao OMRI GROUP xin chân thành cảm ơn quý khách đã quan tâm ,
+ tin dùng các sản phẩm và dịch vụ của Công Ty chúng tôi trong thời gian qua. |  |  |  |  |  |  |  |  |  |  |  |  | 
+    Row 09: Do tình hình thị trường nhiều biến động, để đảm bảo cho các sản phẩm và dịch vụ tốt nhất ,
+ nay Công Ty chúng tôi xin gửi bảng báo giá mới áp dụng từ ngày 01/04/2026 các sản phẩm cụ thể như sau: |  |  |  |  |  |  |  |  |  |  |  |  | 
+    Row 21:  |  |  |  |  |  | Ngày 01 Tháng 04 Năm 2026 |  |  |  |  |  |  | 
+    Row 22:  |  |  |  |  |  | ( GIÁM ĐỐC) |  |  |  |  |  |  | 
+
+=== FILE: OMRI_BBG_ NPP_2026.xlsx ===
+  Sheet: DÒNG PHÂN NỞ
+    Row 01:  | CÔNG TY CỔ PHẦN NÔNG NGHIỆP CÔNG NGHỆ CAO OMRI GROUP  |  |  |  |  |  |  |  |  |  |  |  | 
+    Row 02:  |                 Trụ sở: 2E/1, Đường 970 -KP4, Phường Long Trường -  TP.HCM |  |  |  |  |  |  |  |  |  |  |  | 
+    Row 03:  |                     Nhà Máy : Lô B220A,KCN Thái Hòa,Xã Đức Lập Hạ,Tỉnh Tây Ninh, Việt Nam |  |  |  |  |  |  |  |  |  |  |  | 
+    Row 04:  |    Wedsite: https://omrigroup.vn/- hotline: 0916.616.855/0918.383.222 |  |  |  |  |  |  |  |  |  |  |  | 
+    Row 06: BẢNG BÁO GIÁ |  |  |  |  |  |  |  |  |  |  |  |  | 
+    Row 07:  | Kính gửi: QUÝ NHÀ PHÂN PHỐI |  |  |  |  |  |  |  |  |  |  |  | 
+    Row 08: Công ty Cổ phần Nông Nghiệp Công Nghệ Cao OMRI GROUP xin chân thành cảm ơn quý khách đã quan tâm, tin dùng các sản phẩm và dịch vụ 
+của Công Ty chúng tôi trong thời gian qua. |  |  |  |  |  |  |  |  |  |  |  |  | 
+    Row 09: Do tình hình thị trường nhiều biến động, để đảm bảo cho các sản phẩm và dịch vụ tốt nhất, nay Công Ty chúng tôi xin gửi bảng báo giá mới 
+áp dụng từ ngày 01/04/2026 các sản phẩm cụ thể như sau: |  |  |  |  |  |  |  |  |  |  |  |  | 
+    Row 10:  |  |  |  | Đvt: Đồng |  |  |  |  |  |  |  |  | 
+    Row 11: STT | TÊN HÀNG HÓA | QUY CÁCH | ĐVT | GIÁ NPP TẠI KHO OMRI | GHI CHÚ |  |  |  |  |  |  |  | 
+    Row 13: 1 | PHÂN BÓN HỮU CƠ OMRI 70 OM CAO CẤP
+( Sản phẩm có NPK , humic,amino,fuvic + TE ) | Bao 25 kg | Tấn | 6800000 |  |  |  |  |  |  |  |  | 
+    Row 14: 2 | PHÂN BÓN HỮU CƠ OMRI 70 OM 
+( sản phẩm có NPK,Humic,Amino,Fulvic và các dinh dưỡng tiêu chuẩn ) | Bao 25 kg | Tấn | 6200000 |  |  |  |  |  |  |  |  | 
+    Row 15: 4 | PHÂN BÓN HỮU CƠ OMRI 50 OM 
+( Sản phẩm có NPK và các dinh dưỡng tiêu chuẩn ) | Bao 25 kg | Tấn | 4500000 |  |  |  |  |  |  |  |  | 
+    Row 16: 5 | PHÂN BÓN HỮU CƠ HC GARDEN ORGANIC( BAO 25 Kg) 
+( Sản phẩm chứa NPK 12-0-1, 30 OM, amino ,fulvic ...) | Bao 25 kg | Tấn | 11200000 |  |  |  |  |  |  |  |  | 
+    Row 17: 6 | PHÂN BÓN HỮU CƠ HC GARDEN ORGANIC( BAO 10 Kg) 
+( Sản phẩm chứa NPK 12-0-1, 30 OM, amino ,fulvic ...) | Túi 10 kg | Tấn | 12000000 |  |  |  |  |  |  |  |  | 
+    Row 18: 7 | TRUNG VI LƯỢNG - OMRI - BAO BẠC 20 Kg
+( Sản phẩm có 20 OM + TE và các thành phầm giúp giải độc đất ,cân bằng lượng nước ) | Bao 20 kg | Tấn | 16000000 |  |  |  |  |  |  |  |  | 
+    Row 19: 8 | HUCMIC OMRI CAO CẤP ( DẠNG BỘT ,VẢY - TÚI 1 KG ) | Túi 1 kg | kg | 55000 |  |  |  |  |  |  |  |  | 
+    Row 20: 9 | HUMIC CACBON ( DẠNG BỘT- TÚI 1KG ) | Túi 1 kg | kg | 28000 |  |  |  |  |  |  |  |  | 
+    Row 21: 10 | HUMIC CACBON( DẠNG BỘT- TÚI 5 KG) ) | Túi 5 kg | kg | 130000 |  |  |  |  |  |  |  |  | 
+    Row 22: 11 |  TRICHODEMA ( DẠNG BỘT - TÚI 1 KG ) | Túi 1 kg | kg | 28000 |  |  |  |  |  |  |  |  | 
+    Row 23: 12 |  TRICHODEMA ( DẠNG LỎNG - CAN 5 LÍT ) | Can 5 lít  | Lít | 165000 |  |  |  |  |  |  |  |  | 
+    Row 24: Ghi chú: Giá thay đổi theo thị trường . |  |  |  |  |  |  |  |  |  |  |  |  | 
+    Row 25: Công ty Omri Group chân thành biết ơn sự hợp tác của Quý khách hàng. |  |  |  |  |  |  |  |  |  |  |  |  | 
+    Row 26: Trân trọng báo giá! |  |  |  |  |  |  |  |  |  |  |  |  | 
+    Row 27:  |  | Ngày 01 Tháng 03 Năm 2026 |  |  |  |  |  |  |  |  |  |  | 
+    Row 28:  |  | Tổng Giám Đốc |  |  |  |  |  |  |  |  |  |  | 
+
+  Sheet: DÒNG PHÂN NƯỚC
+    Row 01:  | CỔNG TY CỔ PHẦN NÔNG NGHIỆP CÔNG NGHỆ CAO OMRI GROUP  |  |  |  |  |  |  |  |  |  |  |  | 
+    Row 02:  |  |                 Trụ sở: 2E/1 Đường 970 - KP 4 - Phường Long Trường - TP.HCM |  |  |  |  |  |  |  |  |  |  | 
+    Row 03:  |  |                     Nhà Máy : Lô B220A,KCN Thái Hòa,Xã Đức Lập ,Tỉnh Long An |  |  |  |  |  |  |  |  |  |  | 
+    Row 04:  |  |    Wedsite: https://omrigroup.vn/- hotline: 0916.616.855 - 0918.383.222 |  |  |  |  |  |  |  |  |  |  | 
+    Row 06:  |  | BẢNG BÁO GIÁ |  |  |  |  |  |  |  |  |  |  | 
+    Row 07:  |  | Kính gửi: QUÝ NHÀ PHÂN PHỐI |  |  |  |  |  |  |  |  |  |  | 
+    Row 08: Công ty Cổ phần Nông Nghiệp Công Nghệ Cao OMRI GROUP xin chân thành cảm ơn quý khách đã quan tâm  |  |  |  |  |  |  |  |  |  |  |  |  | 
+    Row 09: ,tin dùng  các sản phẩm và dịch vụ của công ty chúng tôi trong thời gian qua. |  |  |  |  |  |  |  |  |  |  |  |  | 
+    Row 10: Nay  chúng tôi xin gửi bảng giá dành cho nhà phân phối mới như sau : |  |  |  |  |  |  |  | Đvt: Đồng |  |  |  |  | 
+    Row 11: STT | Tên sản phẩm | Cây trồng | Thể tích | Loại | Qui cách | Đơn giá | Giá thùng | Ghi chú |  |  |  |  | 
+    Row 12: 1 | Lân Đỏ 5-5-6 | Tổng hợp | 1L | Chai | 20 | 55000 | 1100000 |  |  |  |  |  | 
+    Row 13: 2 | Siêu vọt đọt | Điều | 500ml | Chai | 40 | 28000 | 1120000 |  |  |  |  |  | 
+    Row 14: 3 | Lân đỏ 5L | Tổng hợp | 5L | Can | 4 | 245000 | 980000 |  |  |  |  |  | 
+    Row 15: 4 | Amino 23 | Tổng hợp | 1L | Chai | 20 | 75000 | 1500000 |  |  |  |  |  | 
+    Row 16:  | Amino 23 | Tổng hợp | 500ml | Chai | 40 | 38000 | 1520000 |  |  |  |  |  | 
+    Row 17: 5 | Roots Omri  | Tổng hợp | 5L | Can | 4 | 315000 | 1260000 |  |  |  |  |  | 
+    Row 18:  | Roots Omri  | Tổng hợp | 20 kg | Xô | 1 | 1020000 | 1020000 |  |  |  |  |  | 
+    Row 19: 6 | Amino 40 | Tổng hợp | 1L | Chai | 20 | 75000 | 1500000 |  |  |  |  |  | 
+    Row 20: 7 | Canxibo 7-2 | Tổng hợp | 1L | Chai | 20 | 50000 | 1000000 |  |  |  |  |  | 
+    Row 21: 8 | Canxibo -omri | Tổng hợp | 1L | Chai | 20 | 82000 | D |  |  |  |  |  | 
+    Row 22: 9 | Amino 40 | Tổng hợp | 1L | Chai | 20 | 75000 | 1500000 |  |  |  |  |  | 
+    Row 23: 10 | Đạm cá omri | Tổng hợp | 1L | Chai | 20 | 65000 | 1300000 |  |  |  |  |  | 
+    Row 24: 11 | Đạm cá omri | Tổng hợp | 5L | Can | 4 | 300000 | 1200000 |  |  |  |  |  | 
+    Row 25:  | Lớn trái omri  | Tổng hợp | 1L | Chai | 20 | 68000 | 1360000 |  |  |  |  |  | 
+    Row 26: 12 | Lớn trái omri  | Tổng hợp | 20 kg | Xô | 1 | 720000 | 720000 |  |  |  |  |  | 
+    Row 27: 13 | Ziphos Omri ( lân đỏ) | Tổng hợp | 21 kg | Xô | 1 | 645000 | 645000 |  |  |  |  |  | 
+    Row 28: 14 | Mg-Zn | Tổng hợp | 1L | Chai | 1 | 55000 | 55000 |  |  |  |  |  | 
+    Row 30:    GHI CHÚ: Giá thay đổi theo thị trường |  |  |  |  |  |  |  |  |  |  |  |  | 
+    Row 31: Công ty Omri Group chân thành biết ơn sự hợp tác của Quý khách hàng. |  |  |  |  |  |  |  |  |  |  |  |  | 
+    Row 32: Trân trọng báo giá! |  |  |  |  |  |  |  |  |  |  |  |  | 
+    Row 33:  |  |  |  |  |  | Ngày 01 Tháng 03  Năm 2026 |  |  |  |  |  |  | 
+    Row 34:  |  |  |  |  |  | Giám Đốc |  |  |  |  |  |  | 
+
+  Sheet: ẢNH SP
+    Row 01:  | CÔNG TY CỔ PHẦN NÔNG NGHIỆP CÔNG NGHỆ CAO OMRI GROUP  |  |  |  |  |  |  |  |  |  |  |  | 
+    Row 02:  |                 Trụ sở: 2E/1, Đường 970 -KP4, Phường Long Trường -  TP.HCM |  |  |  |  |  |  |  |  |  |  |  | 
+    Row 03:  |                     Nhà Máy : Lô B220A,KCN Thái Hòa,Xã Đức Lậpạ,Tỉnh Tây Ninh, Việt Nam |  |  |  |  |  |  |  |  |  |  |  | 
+    Row 04:  |    Wedsite: https://omrigroup.vn/- hotline: 0916.616.855/0918.383.222 |  |  |  |  |  |  |  |  |  |  |  | 
+    Row 06:  | BẢNG BÁO GIÁ |  |  |  |  |  |  |  |  |  |  |  | 
+    Row 07:  | Kính gửi: QUÝ NHÀ PHÂN PHỐI |  |  |  |  |  |  |  |  |  |  |  | 
+    Row 08: Công ty Cổ phần Nông Nghiệp Công Nghệ Cao OMRI GROUP xin chân thành cảm ơn quý khách đã quan tâm, tin dùng  các sản phẩm và dịch vụ 
+của công ty chúng tôi trong thời gian qua. |  |  |  |  |  |  |  |  |  |  |  |  | 
+    Row 09:  |  |  |  |  | Đvt: Đồng |  |  |  |  |  |  |  | 
+    Row 10: STT | TÊN HÀNG HÓA | QUY CÁCH | ĐVT | ẢNH BAO BÌ | GHI CHÚ |  |  |  |  |  |  |  | 
+    Row 12: 1 | PHÂN BÓN HỮU CƠ OMRI 70 OM CAO CẤP | Bao 25 kg | Tấn |  |  |  |  |  |  |  |  |  | 
+    Row 13: 2 | PHÂN BÓN HỮU CƠ OMRI 70 OM  | Bao 25 kg | Tấn |  |  |  |  |  |  |  |  |  | 
+    Row 14: 3 | PHÂN BÓN HỮU CƠ OMRI 60 OM  | Bao 25 kg | Tấn |  |  |  |  |  |  |  |  |  | 
+    Row 15: 4 | PHÂN BÓN HỮU CƠ HC GARDEN ORGANIC( BAO 25 Kg)  | Bao 25 kg | Tấn |  |  |  |  |  |  |  |  |  | 
+    Row 16: 5 | PHÂN BÓN HỮU CƠ HC GARDEN ORGANIC( TÚI 10 Kg)  | Túi 10 kg | Tấn |  |  |  |  |  |  |  |  |  | 
+    Row 17: 6 | TRUNG VI LƯỢNG BAO BẠC 20 Kg | Bao 20 kg | Tấn |  |  |  |  |  |  |  |  |  | 
+    Row 18: Công ty Omri Group chân thành biết ơn sự hợp tác của Quý khách hàng. |  |  |  |  |  |  |  |  |  |  |  |  | 
+    Row 19: Trân trọng báo giá! |  |  |  |  |  |  |  |  |  |  |  |  | 
+    Row 20:  |  |  | Ngày 01 Tháng 03  Năm 2026 |  |  |  |  |  |  |  |  |  | 
+    Row 21:  |  |  | Giám Đốc |  |  |  |  |  |  |  |  |  | 
+
