@@ -95,3 +95,49 @@ license.lic
 ############################################################
 
 # Không thêm dòng .git/
+# ======================================================
+# Python
+# ======================================================
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual Environment
+venv/
+.venv/
+env/
+ENV/
+**/venv/
+**/.venv/
+
+# Python cache
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Build
+build/
+dist/
+*.egg-info/
+pip-wheel-metadata/
+
+# Executables
+*.exe
+
+# IDE
+.vscode/
+.idea/
+*.code-workspace
+
+# Windows
+Thumbs.db
+Desktop.ini
+
+# Logs
+*.log
+
+# SQLite
+*.db
+*.sqlite3
