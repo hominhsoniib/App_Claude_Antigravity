@@ -225,7 +225,7 @@ Vietnam
 
 Email
 
-Son.HM@vocarimex.com
+hominhsoniib@gmail.com
 
 GitHub
 
